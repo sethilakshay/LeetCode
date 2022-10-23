@@ -1,22 +1,33 @@
 class Solution {
 public:
-    //TC: O(N^2)
     int lengthOfLIS(vector<int>& nums) {
-        int n = nums.size(), res = 1;
-        //Creating a DP vector and initializing all to 1 bcz the minimum length can be 1
-        vector<int> dp(n, 1);
+
+        vector<int> vect;
+        vect.push_back(nums[0]);
         
-        for(int i=1; i<n; i++){
-            for(int j=i-1; j>=0; j--){
-                
-                //Comparing all the cases for the below condition
-                if(nums[i]-nums[j] > 0)
-                    dp[i] = max(dp[i], 1+dp[j]);
-                
+        for(int i=1; i<nums.size(); i++){
+        
+            if(vect.back() < nums[i]){
+                vect.push_back(nums[i]);
             }
-            res = max(res, dp[i]);
+            
+            else if (vect.back() > nums[i]){
+                //Task is to find the element in arr just bigger or equal to nums[i]
+                int lo = 0, hi = vect.size()-1, mid;
+                while(lo<hi){
+                    mid = lo + (hi-lo)/2;
+                    //Predicate: Update lo if nums[i]>nums[mid]
+                    //FFFFF*TTTTT*
+                    if(nums[i] > vect[mid])
+                        lo = mid+1;
+                    
+                    else
+                        hi = mid;
+                }
+                //Updating the elt
+                vect[hi] = nums[i];
+            }
         }
-        
-        return res;
+        return vect.size();
     }
 };
