@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //TC: O(N^2)
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size(), res = 1;
         //Creating a DP vector and initializing all to 1 bcz the minimum length can be 1
