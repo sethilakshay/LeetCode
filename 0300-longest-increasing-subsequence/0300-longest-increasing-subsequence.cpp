@@ -21,11 +21,11 @@ public:
                     //Predicate: Update lo if nums[i]>nums[mid]
                     //FFFFF*TTTTT*: Find the first True according to the above Predicate
                     
-                    if(nums[i] <= vect[mid])
-                        hi = mid;
+                    if(nums[i] > vect[mid])
+                        lo = mid+1;
                     
                     else
-                        lo = mid+1;
+                        hi = mid;
                 }
                 //Sanity check and updating only if needed
                 if(vect[hi]>nums[i])
