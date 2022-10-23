@@ -9,7 +9,7 @@ public:
             for(int j=i-1; j>=0; j--){
                 
                 //Comparing all the cases for the below condition
-                if(nums[i]>nums[j])
+                if(nums[i]-nums[j] > 0)
                     dp[i] = max(dp[i], 1+dp[j]);
                 
             }
