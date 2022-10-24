@@ -15,7 +15,7 @@ public:
                 res++;
             }
             
-            freq[s[i]-'a']++;
+            freq[s[i]-'a'] = 1;
             
         }
         return res+1;
