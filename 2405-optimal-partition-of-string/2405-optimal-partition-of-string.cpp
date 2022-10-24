@@ -3,22 +3,15 @@ public:
     int partitionString(string s) {
         int n = s.size(), res = 0;
         
-        vector<int> freq(26, 0);
+        set<char> char_chck;
         for(int i = 0; i<n; i++){
             
-            if(freq[s[i]-'a'] == 0){
-                freq[s[i]-'a'] = 1;
-            }
-                
-            
-            else{
-                for(int k=0; k<26; k++)
-                    freq[k] = 0;
-
-                freq[s[i]-'a'] = 1;
-                
+            if(char_chck.find(s[i]) != char_chck.end()){
                 res++;
+                char_chck.clear();
             }
+            
+            char_chck.insert(s[i]);
         }
         return res+1;
         
