@@ -6,22 +6,20 @@ public:
         vector<pair<int, int>> sort_nums;
         
         for(int i=0; i<nums.size(); i++){
-            sort_nums.push_back(make_pair(i, nums[i]));
+            sort_nums.push_back(make_pair(nums[i], i));
         }
-        
-        sort(sort_nums.begin(), sort_nums.end(), [](pair <int, int>& a, pair <int, int>& b){
-            return a.second < b.second;
-        });
+        //Pair is automatically sorted on the basis of pair.first
+        sort(sort_nums.begin(), sort_nums.end());
         
         //2 pointers
         int l = 0, r = nums.size()-1;
         
         while(l<r){
             
-            if(sort_nums[l].second + sort_nums[r].second == target)
-                return {sort_nums[l].first, sort_nums[r].first};
+            if(sort_nums[l].first + sort_nums[r].first == target)
+                return {sort_nums[l].second, sort_nums[r].second};
             
-            else if (sort_nums[l].second + sort_nums[r].second < target)
+            else if (sort_nums[l].first + sort_nums[r].first < target)
                 l++;
             
             else
