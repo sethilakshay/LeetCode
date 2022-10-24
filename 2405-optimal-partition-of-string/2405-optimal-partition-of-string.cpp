@@ -13,6 +13,7 @@ public:
             
             char_chck.insert(s[i]);
         }
+        
         return res+1;
         
     }
