@@ -6,7 +6,7 @@ public:
         vector<pair<int, int>> sort_nums;
         
         for(int i=0; i<nums.size(); i++){
-            sort_nums.push_back({nums[i], i});
+            sort_nums.push_back(make_pair(nums[i], i));
         }
         
         sort(sort_nums.begin(), sort_nums.end());
