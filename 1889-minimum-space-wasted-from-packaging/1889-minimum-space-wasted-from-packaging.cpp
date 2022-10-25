@@ -11,7 +11,6 @@ public:
         for(auto pk: packages)
             packages_sum += pk;
         
-        
         for(int i=0; i<boxes.size(); i++){
             
             sort(boxes[i].begin(), boxes[i].end());
@@ -20,7 +19,7 @@ public:
             
             long box_waste = 0, lo = 0, prev_lo = 0;
             for(int j=0; j<boxes[i].size(); j++){
-                
+
                 if(boxes[i][j] < packages[lo])
                     continue;
                 
@@ -34,13 +33,11 @@ public:
                 }
                 
                 box_waste += ((lo-prev_lo+1)*boxes[i][j]);
-                
                 prev_lo = lo+1;
                 
                 if(lo == n-1)
                     continue;
             }
-            
             min_waste = min(min_waste, box_waste);
         }
         
