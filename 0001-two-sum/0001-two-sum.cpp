@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //Constant Space Algorithim
     vector<int> twoSum(vector<int>& nums, int target) {
         
         //Making a vector of pairs to store number and their index
