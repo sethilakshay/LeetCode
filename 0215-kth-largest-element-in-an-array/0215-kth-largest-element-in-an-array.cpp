@@ -26,7 +26,6 @@ public:
     
     int findKthLargest(vector<int>& nums, int k) {
         
-        int idx = nums.size()-k;
-        return QuickSelect(0, nums.size()-1, nums, idx);
+        return QuickSelect(0, nums.size()-1, nums, nums.size()-k);
     }
 };
