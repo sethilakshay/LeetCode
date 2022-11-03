@@ -16,8 +16,8 @@ public:
         priority_queue<pair<int, int>, vector<pair<int, int>>, compare> maxq;
         
         for(auto it = hash_map.begin(); it != hash_map.end(); it++){
-            int key = it->first;
-            maxq.push(make_pair(key, hash_map[key]));
+
+            maxq.push(make_pair(it->first, it->second));
         }
         
         vector<int> res;
