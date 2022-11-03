@@ -9,8 +9,8 @@ public:
         
         priority_queue<pair<int, int>> maxq;
         
-        for(auto it: hash_map){
-            maxq.push(make_pair(it.second, it.first));
+        for(auto it = hash_map.begin(); it != hash_map.end(); it++){
+            maxq.push(make_pair(it->second, it->first));
         }
         
         vector<int> res;
