@@ -3,19 +3,14 @@ public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
         int n = points.size();
         
-        vector<pair<float, vector<int>>> dist(n);
-        for(int i=0; i<n; i++){
-            dist[i] = make_pair(pow(pow(points[i][0], 2) + pow(points[i][1], 2), 0.5), points[i]);
-        }
-        
-        sort(dist.begin(), dist.end(), [](pair<float, vector<int>>& a, pair<float, vector<int>>& b){
-            return a.first<b.first;
+        sort(points.begin(), points.end(), [](vector<int>& a, vector<int>& b){
+            return a[0]*a[0] + a[1]*a[1] < b[0]*b[0] + b[1]*b[1];
         });
             
         vector<vector<int>> res(k);
         
         for(int i=0; i<k; i++){
-            res[i] = dist[i].second;
+            res[i] = points[i];
         }
         
         return res;
