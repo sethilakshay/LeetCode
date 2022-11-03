@@ -2,22 +2,28 @@ class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         
+        struct compare{
+            bool operator()(pair<int, int>& a, pair<int, int> b){
+                return a.second < b.second;
+            }
+        };
+        
         unordered_map<int, int> hash_map;
         for(int num: nums){
             hash_map[num]++;
         }
         
-        priority_queue<pair<int, int>> maxq;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, compare> maxq;
         
         for(auto it = hash_map.begin(); it != hash_map.end(); it++){
             int key = it->first;
-            maxq.push(make_pair(hash_map[key], key));
+            maxq.push(make_pair(key, hash_map[key]));
         }
         
         vector<int> res;
         
         while(k > 0){
-            res.push_back(maxq.top().second);
+            res.push_back(maxq.top().first);
             maxq.pop();
             k--;
         }
