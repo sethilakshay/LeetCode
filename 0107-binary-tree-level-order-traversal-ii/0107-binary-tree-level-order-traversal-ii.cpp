@@ -47,7 +47,17 @@ public:
             }
         }
         
-        reverse(res.begin(), res.end());
+        int start = 0, end = res.size()-1;
+        vector<int> temp;
+        
+        while(start<end){
+            temp = res[start];
+            res[start] = res[end];
+            res[end] = temp;
+            
+            start++;
+            end--;
+        }
         return res;
     }
 };
