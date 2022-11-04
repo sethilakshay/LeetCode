@@ -2,35 +2,36 @@ class MedianFinder {
 public:
     priority_queue<int> maxq;
     priority_queue<int, vector<int>, greater<int>> minq;
+    bool isEven = true;
     
     MedianFinder() {
     }
     
     void addNum(int num) {
         
-        if((minq.size() + maxq.size()) %2 == 0){
+        if(isEven){
             minq.push(num);
             maxq.push(minq.top());
             minq.pop();
+            isEven = false; 
         }
         
         else{
             maxq.push(num);
             minq.push(maxq.top());
             maxq.pop();
+            isEven = true;
         }
         
     }
     
     double findMedian() {
-        if((minq.size() + maxq.size()) %2 == 0){
-            return (double) (minq.top() + maxq.top())/2; 
+        if(isEven){
+            return (double) (minq.top() + maxq.top())/2;
         }
         else{
             return (double) maxq.top(); 
         }
-        
-        return {};
     }
 };
 
