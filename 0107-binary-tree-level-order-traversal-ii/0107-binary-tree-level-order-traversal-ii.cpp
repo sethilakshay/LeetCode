@@ -20,7 +20,8 @@ public:
         queue<TreeNode*> q;
         q.push(root);
         
-        res.push_back({q.front()->val});
+        stack<vector<int>> stk;
+        stk.push({q.front()->val});
         
         while(!q.empty()){
             
@@ -43,20 +44,14 @@ public:
             }
             
             if(vec.size() != 0){
-                res.push_back(vec);
+                stk.push(vec);
             }
         }
         
-        int start = 0, end = res.size()-1;
-        vector<int> temp;
         
-        while(start<end){
-            temp = res[start];
-            res[start] = res[end];
-            res[end] = temp;
-            
-            start++;
-            end--;
+        while(!stk.empty()){
+            res.push_back(stk.top());
+            stk.pop();
         }
         return res;
     }
