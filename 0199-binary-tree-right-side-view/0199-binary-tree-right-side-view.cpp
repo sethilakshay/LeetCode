@@ -25,7 +25,7 @@ public:
         while(!q.empty()){
             
             int n = q.size();
-            int lvl_res = -101;
+            int val = INT_MIN;
             
             for(int i=0; i<n; i++){
     
@@ -34,16 +34,16 @@ public:
                 
                 if(temp->left != NULL){
                     q.push(temp->left);
-                    lvl_res = temp->left->val;
+                    val = temp->left->val;
                 }
                 if(temp->right != NULL){
                     q.push(temp->right);
-                    lvl_res = temp->right->val;
+                    val = temp->right->val;
                 }
             }
             
-            if(lvl_res != -101){
-                res.push_back(lvl_res);
+            if(val != INT_MIN){
+                res.push_back(val);
             }
         }
         return res;
