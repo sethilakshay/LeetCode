@@ -26,12 +26,11 @@ public:
     }
     
     double findMedian() {
-        if(isEven){
+        if(isEven)
             return (double) (minq.top() + maxq.top())/2;
-        }
-        else{
-            return (double) maxq.top(); 
-        }
+
+        else
+            return maxq.top(); 
     }
 };
 
