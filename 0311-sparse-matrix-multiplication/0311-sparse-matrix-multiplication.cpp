@@ -8,11 +8,14 @@ public:
         
         for(int i=0; i<mat_1r; i++){
             
-            for(int j=0; j<mat_2c; j++){
+            for(int j=0; j<mat_1c_2r; j++){
                 
-                for(int k=0; k<mat_1c_2r; k++){
-                    
-                    res[i][j] += mat1[i][k]*mat2[k][j];
+                if(mat1[i][j] == 0){
+                    continue;
+                }
+                
+                for(int k=0; k<mat_2c; k++){
+                    res[i][k] += mat1[i][j]*mat2[j][k];
                 }   
             }
         }
