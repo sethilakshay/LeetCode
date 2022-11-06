@@ -8,6 +8,8 @@
  */
 class Solution {
 public:
+    //TC: O(n)
+    //SC: O(1)
     bool hasCycle(ListNode *head) {
         
         unordered_set<ListNode*> s_unique;
