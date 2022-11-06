@@ -19,9 +19,8 @@ public:
             len++;
         }
         
-        if(len==n){
+        if(len==n)
             return head->next;
-        }
         
         int stop = len-n;
         temp = head;
