@@ -10,33 +10,52 @@
  */
 class Solution {
 public:
-    ListNode* mergeKLists(vector<ListNode*>& lists) {
+    ListNode* merge(ListNode* list1, ListNode* list2){
+        ListNode* out = new ListNode(INT_MIN);
+        ListNode* temp = out;
         
-        priority_queue<int, vector<int>, greater<int>> min_heap;
-        ListNode* temp;
-        
-        for(int i=0; i<lists.size(); i++){
-            temp = lists[i];
+        while(list1 != NULL && list2 != NULL){
             
-            while(temp != NULL){
-                min_heap.push(temp->val);
+            if(list1->val <= list2->val){
+                temp->next = new ListNode(list1->val);
                 temp = temp->next;
+                list1 = list1->next;
+            }
+            else{
+                temp->next = new ListNode(list2->val);
+                temp = temp->next;
+                list2 = list2->next;
             }
         }
-    
-        
-        if(min_heap.size() == 0)
-            return NULL;
-        
-        ListNode* sorted = new ListNode(min_heap.top());
-        temp = sorted;
-        min_heap.pop();
-        
-        while(!min_heap.empty()){
-            temp->next = new ListNode(min_heap.top());
-            temp = temp->next;
-            min_heap.pop();
+        if(list1 != NULL){
+            temp->next = list1;
         }
-        return sorted;
+        else{
+            temp->next = list2;
+        }
+        return out->next;
+    }
+    
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        
+        if(lists.size() == 0){
+            return NULL;
+        }
+        
+        while(lists.size() > 1){
+            vector<ListNode*> new_list;
+            
+            int i;
+            for(i=1; i<lists.size(); i += 2){
+                new_list.push_back(merge(lists[i], lists[i-1]));
+            }
+            
+            if(i == lists.size()){
+                new_list.push_back(lists[i-1]);
+            }
+            
+            lists = new_list;
+        }
+        return lists[0];
     }
 };
