@@ -3,45 +3,46 @@ public:
     string decodeString(string s) {
         
         stack<char> stk;
-        string res = "";
         
         for(int i=0; i<s.size(); i++){
+            
             if(s[i] != ']'){
                 stk.push(s[i]);
             }
 
             else{
-                string temp = "";
+                string curr_str = "";
                 while(stk.top() != '['){
-                    temp = stk.top() + temp;
+                    curr_str = stk.top() + curr_str;
                     stk.pop();
                 }
                 
                 stk.pop();  //To remove this [
-                
                 string num = "";
-                while(!stk.empty() && '0' <=stk.top() && stk.top()<= '9'){
+                
+                while(!stk.empty() && isdigit(stk.top())){
                     num = stk.top() + num;
                     stk.pop();
                 }
                 
-                int temp_n = stoi(num);
+                int repeat = stoi(num);
                 
-                while(temp_n > 0){
+                while(repeat > 0){
                     
-                    for(int k=0; k<temp.size(); k++)
-                        stk.push(temp[k]);
+                    for(int k=0; k<curr_str.size(); k++)
+                        stk.push(curr_str[k]);
             
-                    temp_n--;
+                    repeat--;
                 }
             }
         }
         
+        s = "";
         while(!stk.empty()){
-            res = stk.top() + res;
+            s = stk.top() + s;
             stk.pop();
         }
         
-        return res;
+        return s;
     }
 };
