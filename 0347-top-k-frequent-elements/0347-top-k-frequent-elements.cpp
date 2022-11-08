@@ -1,9 +1,17 @@
+class compare{
+public:
+    
+    bool operator() (pair<int, int> a, pair<int, int>b){
+        return b.first < a.first;
+    }
+};
+
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         
         unordered_map<int, int> hash_map;
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> min_heap;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, compare> min_heap;
         
         for (int i=0; i<nums.size(); i++){
             hash_map[nums[i]]++;
