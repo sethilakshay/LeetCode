@@ -1,47 +1,44 @@
 class Solution {
 public:
-    string decodeString(string s) {
-        
-        stack<char> stk;
-        string res = "";
-        
-        for(int i=0; i<s.size(); i++){
-            if(s[i] != ']'){
-                stk.push(s[i]);
-            }
 
+    string decodeString(string s) {
+        stack<char> st;
+        for(int i = 0; i < s.size(); i++){
+            if(s[i] != ']') {
+                st.push(s[i]);
+            }
             else{
-                string temp = "";
-                while(stk.top() != '['){
-                    temp = stk.top() + temp;
-                    stk.pop();
+                string curr_str = "";
+                
+                while(st.top() != '['){
+                    curr_str = st.top() + curr_str ;
+                    st.pop();
                 }
                 
-                stk.pop();  //To remove this [
+                st.pop();   // for '['
+                string number = "";
                 
-                string num = "";
-                while(!stk.empty() && '0' <=stk.top() && stk.top()<= '9'){
-                    num = stk.top() + num;
-                    stk.pop();
+                // for calculating number
+                
+                while(!st.empty() && isdigit(st.top())){
+                    number = st.top() + number;
+                    st.pop();
                 }
+                int k_time = stoi(number);    // convert string to number
                 
-                int temp_n = stoi(num);
-                
-                while(temp_n > 0){
-                    
-                    for(int k=0; k<temp.size(); k++)
-                        stk.push(temp[k]);
-            
-                    temp_n--;
+                while(k_time--){
+                    for(int p = 0; p < curr_str.size() ; p++)
+                        st.push(curr_str[p]);
                 }
             }
         }
         
-        while(!stk.empty()){
-            res = stk.top() + res;
-            stk.pop();
+        s = "";
+        while(!st.empty()){
+            s = st.top() + s;
+            st.pop();
         }
+        return s;
         
-        return res;
     }
 };
