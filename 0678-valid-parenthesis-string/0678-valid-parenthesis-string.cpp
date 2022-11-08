@@ -26,6 +26,6 @@ public:
                 return false;
         }
         
-        return left_min == 0 ? true : false;
+        return left_min == 0;
     }
 };
