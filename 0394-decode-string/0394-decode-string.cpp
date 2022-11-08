@@ -3,7 +3,6 @@ public:
     string decodeString(string s) {
         
         stack<char> stk;
-        
         for(int i=0; i<s.size(); i++){
             
             if(s[i] != ']'){
@@ -26,13 +25,10 @@ public:
                 }
                 
                 int repeat = stoi(num);
-                
-                while(repeat > 0){
+                while(repeat--){
                     
                     for(int k=0; k<curr_str.size(); k++)
                         stk.push(curr_str[k]);
-            
-                    repeat--;
                 }
             }
         }
