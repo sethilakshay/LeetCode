@@ -2,38 +2,46 @@ class Solution {
 public:
     int compress(vector<char>& chars) {
         
-        stack<pair<char, int>> stk;
         
-        stk.push(make_pair(chars[0], 1));
+        int start = 0, i, cnt = 1;
+        char curr_char = chars[start];
         
-        for(int i=1; i<chars.size(); i++){
+        for(i = 1; i < chars.size(); i++){
             
-            if(stk.top().first == chars[i])
-                stk.top().second++;
-            
-            else
-                stk.push(make_pair(chars[i], 1));
-        }
-        
-        string res = "";
-        
-        while(!stk.empty()){
-            
-            if(stk.top().second == 1){
-                res = stk.top().first + res;
+            if(chars[i] == curr_char){
+                cnt++;
             }
+            
             else{
-                res = stk.top().first + to_string(stk.top().second) + res;
+                chars[start] = chars[i-1];
+                start++;
+                
+                if(cnt > 1){
+                    string cnt_str = to_string(cnt);
+                    
+                    for(char c: cnt_str){
+                        chars[start] = c;
+                        start++;
+                    }
+                }
+                
+                curr_char = chars[i];
+                cnt = 1;
             }
-            
-            stk.pop();
-        }
-        chars = vector<char>(res.size());
-        
-        for(int i=0; i<res.size(); i++){
-            chars[i] = res[i];
         }
         
-        return res.size();
+        chars[start] = chars[i-1];
+        start++;
+        
+        if(cnt > 1){
+            string cnt_str = to_string(cnt);
+
+            for(char c: cnt_str){
+                chars[start] = c;
+                start++;
+            }
+        }
+        
+        return start;
     }
 };
