@@ -37,12 +37,12 @@ public:
             }
         }
         
-        s = "";
+        string res = "";
         while(!stk.empty()){
-            s = stk.top() + s;
+            res = stk.top() + res;
             stk.pop();
         }
         
-        return s;
+        return res;
     }
 };
