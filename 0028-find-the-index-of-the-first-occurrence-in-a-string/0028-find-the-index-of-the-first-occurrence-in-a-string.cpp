@@ -11,8 +11,16 @@ public:
         
         for(int i=0; i<haystack.size() - chck + 1; i++){
             
-            if(haystack.substr(i, chck) == needle){
-                return i;
+            for(int j=0; j<needle.size(); j++){
+                
+                if(needle[j] != haystack[i+j]){
+                    break;
+                }
+                
+                if(j == needle.size()-1){
+                    return i;
+                }
+                 
             }
             
         }
