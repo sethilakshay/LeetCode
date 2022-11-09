@@ -16,7 +16,7 @@ public:
         
         int i = 0, j = 0, cnt = 0, res = 0;
         
-        while(i<n && j<n && j<=i){
+        while(i<n){
             
             if(start[i] < end[j]){
                 i++;
