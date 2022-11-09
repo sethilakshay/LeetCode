@@ -10,36 +10,14 @@ public:
         
         for(int i=0; i<boxTypes.size(); i++){
             
-            if(truckSize - (boxTypes[i][0]) >= 0){
-                res += boxTypes[i][0]*boxTypes[i][1];
-                truckSize -= boxTypes[i][0];
-            }
+            int boxes = min(truckSize, boxTypes[i][0]);
+            res += boxes*boxTypes[i][1];
             
-            else{
-                int lo = 0, hi = boxTypes[i][0], mid;
-            
-                while(lo<hi){
-                    mid = lo+(hi-lo+1)/2;
-                    
-                    if(truckSize - mid >= 0){
-                        lo = mid;
-                    }
-                    
-                    else{
-                        hi = mid-1;
-                    }
-                }
-                
-                //Sanity check
-                if(truckSize - lo >= 0){
-                    res += lo*boxTypes[i][1];
-                }
-                
-                truckSize -= lo;
-            }
+            truckSize -= boxes;
             
             if(truckSize == 0)
-                break;   
+                break;
+            
         }
         return res;
     }
