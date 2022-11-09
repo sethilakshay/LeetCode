@@ -30,7 +30,7 @@ public:
         
         hash_map[NULL] = NULL;
         
-        Node* deep_copy = new Node (INT_MIN);
+        Node* deep_copy = new Node(INT_MIN);
         Node* temp_copy = deep_copy;
         
         while(temp != NULL){
