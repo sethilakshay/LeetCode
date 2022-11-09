@@ -11,8 +11,6 @@ public:
         dfs(r-1, c, grid, visited);
         dfs(r, c+1, grid, visited);
         dfs(r, c-1, grid, visited);
-        
-        
     }
     
     int numIslands(vector<vector<char>>& grid) {
