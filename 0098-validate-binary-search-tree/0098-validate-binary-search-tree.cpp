@@ -11,22 +11,27 @@
  */
 class Solution {
 public:
+    TreeNode* prev = NULL;
     bool res = true;
     
-    void checkTree(TreeNode* root, long min, long max){
-        if (root == NULL || !res)
+    void inOrder(TreeNode* root){
+        if(root == NULL || !res){
             return;
+        }
         
-        if(root->val <= min || max <= root->val){
+        inOrder(root->left);
+        
+        if(prev != NULL && root->val <= prev->val){
             res = false;
         }
-            
-        checkTree(root->left, min, root->val);
-        checkTree(root->right, root->val, max);
-    }
-    bool isValidBST(TreeNode* root) {
         
-        checkTree(root, LONG_MIN, LONG_MAX);
+        prev = root;
+        
+        inOrder(root->right);
+    }
+    
+    bool isValidBST(TreeNode* root) {
+        inOrder(root);
         return res;
     }
 };
