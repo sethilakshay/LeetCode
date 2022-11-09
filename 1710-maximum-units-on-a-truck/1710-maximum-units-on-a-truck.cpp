@@ -2,7 +2,7 @@ class Solution {
 public:
     int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
         
-        sort(boxTypes.begin(), boxTypes.end(), [truckSize](vector<int>& a, vector<int>& b){
+        sort(boxTypes.begin(), boxTypes.end(), [](vector<int>& a, vector<int>& b){
             return a[1] > b[1];
         });
         
