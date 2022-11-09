@@ -13,6 +13,9 @@ public:
             
             freq[s[i]]--;
             res = max(res, j-i);
+            
+            if(j == s.size())
+                break;
         }
         return res;
     }
