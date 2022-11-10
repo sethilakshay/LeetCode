@@ -1,19 +1,20 @@
 class Solution {
 public:
-    vector<string> res;
     unordered_map<char, string> mapping;
+    vector<string> res;
     
-    void all_comb(string& digits, int idx, string currStr){
-        //Base Case
-        if(currStr.size() == digits.size()){
-            res.push_back(currStr);
+    void buildWord(string& digits, string curr_str, int idx){
+        
+        if(curr_str.size() == digits.size()){
+            res.push_back(curr_str);
             return;
         }
-
-        //Recursion
+        
         for(char c: mapping[digits[idx]]){
-            all_comb(digits, idx+1, currStr + c);
+            
+            buildWord(digits, curr_str+c, idx+1);
         }
+        return;
     }
     vector<string> letterCombinations(string digits) {
 
@@ -29,9 +30,8 @@ public:
         mapping['7'] = "pqrs";
         mapping['8'] = "tuv";
         mapping['9'] = "wxyz";
-        
-        
-        all_comb(digits, 0, "");
+    
+        buildWord(digits, "", 0);
         
         return res;
     }
