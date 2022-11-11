@@ -19,7 +19,8 @@ public:
                     if(dp[i+j]){
                         dp[i] = true;
                         break;
-                    }                
+                    }
+                    
                 }
             }
         }
