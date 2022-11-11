@@ -15,7 +15,7 @@ public:
             }
             else{
                 
-                for(int j = 1; j <= nums[i]; j++){
+                for(int j = nums[i]; j >= 1; j--){
                     if(dp[i+j]){
                         dp[i] = true;
                         break;
