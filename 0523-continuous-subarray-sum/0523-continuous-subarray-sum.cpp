@@ -6,6 +6,7 @@ public:
         unordered_map<int, int> hash_map;
         int res = 0, run_sum = 0, rem;
         
+        //Intializing remainder 0 to -1 as an empty array will also have 0 remainder
         hash_map[0] = -1;
         for(int i = 0; i<nums.size(); i++){
             run_sum += nums[i];
