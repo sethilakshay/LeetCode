@@ -1,19 +1,33 @@
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-        int n = nums.size(), i, j, res = 1;
         
-        //Creating a DP vector and initializing all to 1 bcz the minimum length can be 1
-        vector<int> dp(n, 1);
+        vector<int> vect;
+        vect.push_back(nums[0]);
         
-        for(i=1; i<n; i++){
-            for(j=i-1; j>=0; j--){
-                //Comparing all the cases for the below condition
-                if(nums[j] < nums[i])
-                    dp[i] = max(dp[i], 1 + dp[j]);
+        for(int i=1; i<nums.size(); i++){
+            
+            if(vect.back() < nums[i]){
+                vect.push_back(nums[i]);
             }
-            res = max(res, dp[i]);
+            else if (vect.back() > nums[i]){
+                //Task is to find the element in arr just bigger or equal to nums[i]
+                int lo = 0, hi = vect.size()-1, mid;
+                
+                while(lo<hi){
+                    mid = lo + (hi-lo)/2;
+                    
+                    if(vect[mid] >= nums[i])
+                        hi = mid;
+                    else
+                        lo = mid+1;
+                }
+                
+                if(vect[hi] > nums[i])
+                    vect[hi] = nums[i];
+
+            }
         }
-        return res;
+        return vect.size();
     }
 };
