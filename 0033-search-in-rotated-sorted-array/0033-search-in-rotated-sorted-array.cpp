@@ -43,7 +43,7 @@ public:
             return bin_search(lo, nums.size()-1, nums, target);
         }
         else{
-            return bin_search(0, lo, nums, target);
+            return bin_search(0, lo-1, nums, target);
         }
         return -1;
     }
