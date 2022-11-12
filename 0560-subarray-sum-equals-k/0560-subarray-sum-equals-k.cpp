@@ -2,20 +2,18 @@ class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
         
-        unordered_map <int, int> sum_map;   //Using maps instead of 2-pointers since we can have -ve numbers
+        unordered_map<int, int> hash_map;
+        int res = 0, run_sum = 0;
         
-        int i, n = nums.size(), cum_sum = 0, res = 0;
-        
-        sum_map[0] = 1;     //Initializing sum=0 to 1 because we can also have 1 empty array
-        
-        for(i=0; i<n; i++){
-            cum_sum += nums[i];
+        hash_map[0] = 1;
+        for(int i = 0; i<nums.size(); i++){
+            run_sum += nums[i];
             
-            if(sum_map.find(cum_sum - k) != sum_map.end())
-                res += sum_map[cum_sum - k];
+            if(hash_map.find(run_sum-k) != hash_map.end()){
+                res += hash_map[run_sum-k];
+            }
             
-            sum_map[cum_sum]++;
-            
+            hash_map[run_sum]++;
         }
         return res;
     }
