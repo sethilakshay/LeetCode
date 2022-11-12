@@ -5,7 +5,7 @@ public:
         //Value = Number of times the positive remainder comes
         unordered_map<int, int> sum_map;
         
-        int i, j, n = nums.size(), cum_sum = 0, rem, res = 0;
+        int i, n = nums.size(), cum_sum = 0, rem, res = 0;
         sum_map[0] = 1; //Initializing rem=0 to 1 because of empty array
         
         for(i=0; i<n; i++){
