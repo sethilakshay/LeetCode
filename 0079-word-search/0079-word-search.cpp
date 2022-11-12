@@ -1,6 +1,6 @@
 class Solution {
 public:
-    vector<vector<int>> dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
     bool find(vector<vector<char>>& board, string& word, int indx, vector<vector<bool>>& visited, int i, int j){ 
         if(indx == word.size()){
             return true;
@@ -15,15 +15,13 @@ public:
         
         visited[i][j]=true;
         
-        //The following is for Loop is giving TLE
-        // for (auto dir: dirs){
-        //     res = res || find(board, word, indx+1, visited, i+dir[0], j+dir[1]);
-        // }
-        //Rewrtiting the same statement without a Loop gives no error
         res = res || find(board, word, indx+1, visited, i+1, j);
-        res = res || find(board, word, indx+1, visited, i-1, j);
-        res = res || find(board, word, indx+1, visited, i, j+1);
-        res = res || find(board, word, indx+1, visited, i, j-1);
+        if(!res)
+            res = res || find(board, word, indx+1, visited, i-1, j);
+        if(!res)
+            res = res || find(board, word, indx+1, visited, i, j+1);
+        if(!res)
+            res = res || find(board, word, indx+1, visited, i, j-1);
         
         visited[i][j]=false;
         return res;
