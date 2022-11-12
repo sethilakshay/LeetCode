@@ -6,12 +6,12 @@ public:
         
         while(lo<hi){
             
-            mid = lo + (hi-lo+1)/2;
-            if(arr[mid-1] < arr[mid])
-                lo = mid;
+            mid = lo + (hi-lo)/2;
+            if(arr[mid] > arr[mid+1])
+                hi = mid;
     
             else
-                hi = mid-1;
+                lo = mid+1;
         }
         
         if(arr[lo-1] < arr[lo])
