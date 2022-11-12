@@ -23,21 +23,24 @@ public:
         while(lo<hi){
             
             if(nums[lo] > nums[hi]){
+                
                 mid = lo + (hi-lo)/2;
                 
-                if((nums[lo]+nums[hi])/2 < nums[mid])
-                    lo = mid+1;
-                else
+                if((nums[lo]+nums[hi])/2 >= nums[mid]){
                     hi = mid;
+                }
+                else{
+                    lo = mid+1;
+                }
             }
             else{
                 break;
             }
         }
         
-        if(target <= nums[nums.size()-1])
+        if(target<=nums[nums.size()-1])
             return binSearch(lo, nums.size()-1, nums, target);
         else
-            return binSearch(0, lo-1, nums, target);    
+            return binSearch(0, lo-1, nums, target); 
     }
 };
