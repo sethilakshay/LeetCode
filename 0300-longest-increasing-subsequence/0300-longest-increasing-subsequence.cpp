@@ -5,11 +5,11 @@ public:
         int n = nums.size(), i, j, res = 1;
         vector<int> dp(n, 1);
         
-        for(i = n-2; i>=0; i--){
+        for(i = 1; i<n; i++){
             
-            for(j = i; j<n; j++){
+            for(j = i; j>=0; j--){
                 
-                if(nums[i] < nums[j])
+                if(nums[j] < nums[i])
                     dp[i] = max(dp[i], 1+dp[j]);
                 
                 res = max(dp[i], res);
