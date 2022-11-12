@@ -23,7 +23,7 @@ public:
                         lo = mid+1;
                 }
                 
-                if(vect[hi] > nums[i])
+                if(vect[hi] >= nums[i])
                     vect[hi] = nums[i];
 
             }
