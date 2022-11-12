@@ -22,21 +22,19 @@ public:
         int lo = 0, hi = nums.size()-1, mid;
         
         while(lo<hi){
-            //To check for rotation
-            if (nums[lo]>nums[hi]){
+            
+            if(nums[lo] > nums[hi]){
                 mid = lo + (hi-lo)/2;
-                //FFF*TTT*
-                //First T = Minimum
-                if ((nums[lo]+nums[hi])/2 >= nums[mid]){
-                    hi=mid;                    
+                if(nums[mid] >= nums[lo]){
+                    lo = mid+1;
                 }
                 else{
-                    lo=mid+1;
+                    hi = mid;
                 }
             }
             else{
-                break;//To break the while loop in case of no or partial rotation
-            }                
+                break;
+            }
         }
         
         if(target <= nums[nums.size()-1]){
