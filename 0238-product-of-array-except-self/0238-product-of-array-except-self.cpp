@@ -9,9 +9,11 @@ public:
         
         for(int i=1; i<n; i++){
             left[i] = nums[i-1] * left[i-1];
-            right[n-1-i] = right[n-i]*nums[n-i];
         }
-
+        
+        for(int i=n-2; i>=0; i--){
+            right[i] = nums[i+1] * right[i+1];
+        }
         
         for(int i=0; i<n; i++){
             res[i] = left[i]*right[i];
