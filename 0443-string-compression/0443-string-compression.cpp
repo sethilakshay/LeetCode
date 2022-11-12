@@ -2,14 +2,12 @@ class Solution {
 public:
     int compress(vector<char>& chars) {
         
-        
-        int start = 0, i, cnt = 1;
+        int i , n = chars.size(), cnt = 1, start = 0;
         char curr_char = chars[start];
-        int n = chars.size();
         
-        for(i = 1; i <= n; i++){
+        for(i=1; i<=n; i++){
             
-            if(i < n && chars[i] == curr_char){
+            if(i<n && curr_char == chars[i]){
                 cnt++;
             }
             
@@ -18,21 +16,22 @@ public:
                 start++;
                 
                 if(cnt > 1){
-                    string cnt_str = to_string(cnt);
                     
-                    for(char c: cnt_str){
+                    string str_cnt = to_string(cnt);
+                    
+                    for(char c: str_cnt){
                         chars[start] = c;
                         start++;
                     }
                 }
                 
-                if(i < n){
-                    curr_char = chars[i];
+                if(i<n){
                     cnt = 1;
+                    curr_char = chars[i];
                 }
             }
+            
         }
-        
         return start;
     }
 };
