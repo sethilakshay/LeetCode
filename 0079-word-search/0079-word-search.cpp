@@ -16,12 +16,9 @@ public:
         visited[i][j]=true;
         
         res = res || find(board, word, indx+1, visited, i+1, j);
-        if(!res)
-            res = res || find(board, word, indx+1, visited, i-1, j);
-        if(!res)
-            res = res || find(board, word, indx+1, visited, i, j+1);
-        if(!res)
-            res = res || find(board, word, indx+1, visited, i, j-1);
+        res = res || find(board, word, indx+1, visited, i-1, j);
+        res = res || find(board, word, indx+1, visited, i, j+1);
+        res = res || find(board, word, indx+1, visited, i, j-1);
         
         visited[i][j]=false;
         return res;
