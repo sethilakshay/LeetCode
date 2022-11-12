@@ -2,6 +2,7 @@ class Solution {
 public:
     bool checkSubarraySum(vector<int>& nums, int k) {
         
+        //Key to store the remainder and value to store the index
         unordered_map<int, int> hash_map;
         int res = 0, run_sum = 0, rem;
         
