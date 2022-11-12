@@ -18,30 +18,31 @@ class Solution {
 public:
     Node* copyRandomList(Node* head) {
         
-        unordered_map<Node*, Node*> hash_map;
+        unordered_map<Node*, Node*> map;
         Node* temp = head;
         
         while(temp != NULL){
-            hash_map[temp] = new Node(temp->val);
+            map[temp] = new Node(temp->val);
             temp = temp->next;
         }
         
         temp = head;
+        map[NULL] = NULL;
         
-        hash_map[NULL] = NULL;
-        
-        Node* deep_copy = new Node(INT_MIN);
-        Node* temp_copy = deep_copy;
+        Node* out = new Node(INT_MIN);
+        Node* temp_out  = out;
         
         while(temp != NULL){
+            //Setting up value
+            temp_out->next = map[temp];
             
-            temp_copy->next = hash_map[temp];
-            temp_copy->next->next = hash_map[temp->next];
-            temp_copy->next->random = hash_map[temp->random];
+            //Setting pointers
+            temp_out->next->next = map[temp->next];
+            temp_out->next->random = map[temp->random];
             
+            temp_out = temp_out->next;
             temp = temp->next;
-            temp_copy = temp_copy->next;
         }
-        return deep_copy->next;
+        return out->next;
     }
 };
