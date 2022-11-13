@@ -18,9 +18,8 @@ public:
         vector<vector<int>> res;
         queue<TreeNode*> q;
         
-        TreeNode* temp = root;
-        q.push(temp);
-        res.push_back({temp->val});
+        q.push(root);
+        res.push_back({root->val});
         
         while(!q.empty()){
             
