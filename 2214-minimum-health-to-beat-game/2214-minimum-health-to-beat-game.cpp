@@ -2,16 +2,14 @@ class Solution {
 public:
     long long minimumHealth(vector<int>& damage, int armor) {
         
-        long sum = 0, max_n = 0;
+        long long sum_n = 0, max_n = 0, armor_n = armor;
         
-        for(long n: damage){
-            sum += n;
+        for(long long n: damage){
+            sum_n += n;
             max_n = max(n, max_n);
         }
         
-        if(armor>max_n)
-            return sum - max_n + 1;
-        else
-            return sum - armor+1;
+        
+        return sum_n - min(max_n, armor_n) + 1;
     }
 };
