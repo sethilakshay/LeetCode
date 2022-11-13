@@ -6,19 +6,19 @@ public:
     };
     
     TrieNode* root = new TrieNode();
+    //Function to build the tree
     
     void buildTree(vector<string>& products){
         
         for(int i=0; i<products.size(); i++){
+            
             TrieNode* temp = root;
             
-            for(int j=0; j<products[i].size(); j++){
-                
-                int idx = products[i][j] - 'a';
-                if(temp->child[idx] == NULL){
-                    temp->child[idx] = new TrieNode();
+            for(char c: products[i]){
+                if(temp->child[c-'a'] == NULL){
+                    temp->child[c-'a'] = new TrieNode();
                 }
-                temp = temp->child[idx];
+                temp = temp->child[c-'a'];
             }
             temp->word = products[i];
         }
@@ -31,14 +31,12 @@ public:
         if(res.size() == limit)
             return;
         
-        if(root->word.size() > 0){
+        if(root->word.size() > 0)
             res.push_back(root->word);
-        }
         
         for(int i=0; i<26; i++){
             DFS(root->child[i], limit, res);
         }
-        return;
     }
     
     vector<string> findWords(TrieNode* root, int limit){
@@ -48,16 +46,16 @@ public:
     }
     
     vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+        //Building the Trie Tree
         buildTree(products);
-        
-        vector<vector<string>> res;
-        
         TrieNode* temp = root;
         
+        vector<vector<string>> res;
+
         for(char c: searchWord){
-            int idx = c - 'a';
-            if(temp != NULL && temp->child[idx] != NULL){
-                temp = temp->child[idx];
+
+            if(temp != NULL && temp->child[c-'a'] != NULL){
+                temp = temp->child[c-'a'];
                 res.push_back(findWords(temp, 3));
             }
             else{
