@@ -3,15 +3,16 @@ public:
     bool canJump(vector<int>& nums) {
         
         int n = nums.size(), goal = n-1;
+        vector<int> dp(n);
+        dp[0] = 0;
         
-        for(int i = n-2; i>=0; i--){
+        for(int i = 1; i<n; i++){
+            dp[i] = max(dp[i-1], nums[i-1])-1;
             
-            if(i + nums[i] >= goal){
-                goal = i;
-            }
-            
+            if(dp[i] < 0)
+                return false;
         }
         
-        return goal == 0 ? true : false;
+        return dp[n-1] >= 0;
     }
 };
