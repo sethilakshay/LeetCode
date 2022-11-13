@@ -1,51 +1,52 @@
 class Solution {
 public:
-    void bfs(int r, int c, vector<vector<char>>& grid, vector<vector<int>>& visited){
+    void bfs(int r, int c, vector<vector<char>>& grid, vector<vector<bool>>& visited){
+        int row = grid.size(), col = grid[0].size();
+        vector<pair<int, int>> dirs = {{0,1}, {0,-1}, {1,0}, {-1, 0}};
         
-        visited[r][c] = 1;
         queue<pair<int, int>> q;
         q.push({r, c});
-        
-        vector<pair<int, int>> dirs{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-        int rows = grid.size(), cols = grid[0].size(), curr_r, curr_c, mod_r, mod_c;
+        visited[r][c] = true;
         
         while(!q.empty()){
             
-            curr_r = q.front().first;
-            curr_c = q.front().second;
+            int mod_r = q.front().first;
+            int mod_c = q.front().second;
             q.pop();
             
             for(int i=0; i<dirs.size(); i++){
-                mod_r = curr_r + dirs[i].first;
-                mod_c = curr_c + dirs[i].second;
+                int new_r = mod_r + dirs[i].first;
+                int new_c = mod_c + dirs[i].second;
                 
-                if((0<=mod_r && mod_r<rows) && (0<=mod_c && mod_c<cols)){
+                if(0<=new_r && new_r<row && 0<=new_c && new_c<col){
                     
-                    if(grid[mod_r][mod_c] == '1' && visited[mod_r][mod_c] == 0){
-                        visited[mod_r][mod_c] = 1;
-                        q.push({mod_r, mod_c});
+                    if(grid[new_r][new_c] == '1' && visited[new_r][new_c] == false){
+                        visited[new_r][new_c] = true;
+                        q.push({new_r, new_c});
                     }
-                } 
+                }
+                
             }
+            
         }
+        
     }
-    
     int numIslands(vector<vector<char>>& grid) {
         
-        int rows = grid.size(), cols = grid[0].size(), islands = 0;
+        int row = grid.size(), col = grid[0].size(), res = 0;
+        vector<vector<bool>> visited(row, vector<bool>(col, false));
         
-        vector<vector<int>> visited(rows, vector<int>(cols, 0));
-        
-        for(int i=0; i<rows; i++){
+        for(int i=0; i<row; i++){
             
-            for(int j=0; j<cols; j++){
+            for(int j=0; j<col; j++){
                 
-                if(grid[i][j] == '1' && visited[i][j] == 0){
+                if(grid[i][j] == '1' && visited[i][j] == false){
+                    
                     bfs(i, j, grid, visited);
-                    islands += 1;
+                    res++;
                 }
             }
         }
-        return islands;
+        return res;
     }
 };
