@@ -56,7 +56,7 @@ public:
         
         for(char c: searchWord){
             int idx = c - 'a';
-            if(temp!= NULL && temp->child[idx] != NULL){
+            if(temp != NULL && temp->child[idx] != NULL){
                 temp = temp->child[idx];
                 res.push_back(findWords(temp, 3));
             }
