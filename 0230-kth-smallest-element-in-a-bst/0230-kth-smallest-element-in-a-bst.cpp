@@ -13,7 +13,7 @@ class Solution {
 public:
     int res;
     void inOrder(TreeNode* root, int& k){
-        if(root == NULL)
+        if(root == NULL || k==0)
             return;
         
         inOrder(root->left, k);
