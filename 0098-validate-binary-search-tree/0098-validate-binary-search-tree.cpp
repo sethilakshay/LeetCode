@@ -12,23 +12,20 @@
 class Solution {
 public:
     bool res = true;
-    
-    void TreeCheck(TreeNode* root, long min, long max){
+    void chckRange(TreeNode* root, long min_v, long max_v){
         if(root == NULL || !res){
             return;
         }
         
-        if(root->val <= min || max <= root->val){
+        if(!(min_v < root->val && root->val < max_v))
             res = false;
-        }
         
-        TreeCheck(root->left, min, root->val);
-        TreeCheck(root->right, root->val, max);
+        chckRange(root->left, min_v, root->val);
+        chckRange(root->right, root->val, max_v);
+        
     }
-    
     bool isValidBST(TreeNode* root) {
-        
-        TreeCheck(root, LONG_MIN, LONG_MAX);
+        chckRange(root, LONG_MIN, LONG_MAX);
         return res;
     }
 };
