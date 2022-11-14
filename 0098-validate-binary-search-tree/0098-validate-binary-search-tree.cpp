@@ -11,21 +11,27 @@
  */
 class Solution {
 public:
-    bool res = true;
-    void chckRange(TreeNode* root, long min_v, long max_v){
-        if(root == NULL || !res){
-            return;
-        }
-        
-        if(!(min_v < root->val && root->val < max_v))
-            res = false;
-        
-        chckRange(root->left, min_v, root->val);
-        chckRange(root->right, root->val, max_v);
-        
-    }
     bool isValidBST(TreeNode* root) {
-        chckRange(root, LONG_MIN, LONG_MAX);
-        return res;
+        
+        stack<TreeNode*> stk;
+        TreeNode* prev = NULL;
+        
+        while(root != NULL || !stk.empty()){
+            
+            while(root != NULL){
+                stk.push(root);
+                root = root->left;
+            }
+            
+            root = stk.top();
+            stk.pop();
+            
+            if(prev && root->val <= prev->val)
+                return false;
+            
+            prev = root;
+            root = root->right;
+        }
+        return true;
     }
 };
