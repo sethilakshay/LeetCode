@@ -5,7 +5,6 @@ public:
     int capacity;
     LRUCache(int capacity) {
         this->capacity = capacity;
-        cache.clear();
     }
     
     int get(int key) {
