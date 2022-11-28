@@ -2,18 +2,19 @@ class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
         
-        int n = nums.size(), i, res;
-        
-        vector<int> dp(n, 0);
-        
-        dp[0] = nums[0];
-        res = dp[0];
+        int n = nums.size(), res;
+        //Space optimized solution as we only need dp[i] and dp[i-1]
+        int prev, curr;
+        //Covering the Base case
+        prev = nums[0];
+        res = prev;
         
         for(int i=1; i<n; i++){
-            dp[i] = max(dp[i-1] + nums[i], nums[i]);
-            res = max(res, dp[i]);
+            curr = max(nums[i], prev+nums[i]);
+            res = max(res, curr);
+            //Updating
+            prev = curr;
         }
-        
         return res;
     }
 };
