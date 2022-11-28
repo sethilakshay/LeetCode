@@ -11,17 +11,17 @@ public:
     
     int get(int key) {
         if(cache_map.find(key) == cache_map.end())
-           return -1;
-           
+            return -1;
+        
         int temp = cache_map[key]->second;
         cache.erase(cache_map[key]);
         cache.push_front({key, temp});
         cache_map[key] = cache.begin();
+        
         return temp;
     }
     
     void put(int key, int value) {
-        
         if(cache_map.find(key) != cache_map.end()){
             cache.erase(cache_map[key]);
             cache.push_front({key, value});
