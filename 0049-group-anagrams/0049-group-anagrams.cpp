@@ -8,12 +8,10 @@ public:
         for(int i=0; i<strs.size(); i++){
             
             string temp = strs[i];
-            
             sort(temp.begin(), temp.end());
             
             if(hash_map.find(temp) == hash_map.end()){
-                
-                res.push_back(vector<string>());
+                res.push_back(vector<string> ());
                 hash_map[temp] = res.size()-1;
             }
             
