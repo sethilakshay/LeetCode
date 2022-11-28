@@ -6,7 +6,7 @@ public:
         
         for(i = n-2; i>=0; i--){
             
-            if(nums[i] < nums[i+1])
+            if(!(nums[i] >= nums[i+1]))
                 break;
         }
         
