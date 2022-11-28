@@ -7,17 +7,17 @@ public:
         
         int i=0, j = 0;
         
-        while(j<n){
-
-            freq[s[j]]++;
+        while(i<=j && j<n){
             
-            while(freq[s[j]] > 1 && i<=j){
+            if(freq[s[j]] == 0){
+                freq[s[j]]++;
+                j++;
+            }
+            else{
                 freq[s[i]]--;
                 i++;
             }
-            
-            res = max(res, j-i+1);
-            j++;
+            res = max(res, j-i);
         }
         
         return res;
