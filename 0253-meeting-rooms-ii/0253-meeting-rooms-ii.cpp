@@ -2,7 +2,7 @@ class Solution {
 public:
     int minMeetingRooms(vector<vector<int>>& intervals) {
         
-        int n = intervals.size(), i = 0, j = 0, res = 1, cnt = 0;
+        int n = intervals.size(), i = 0, j = 0, res = 0, cnt = 0;
         
         vector<int> start(n);
         vector<int> end(n);
