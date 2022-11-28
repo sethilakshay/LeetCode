@@ -1,6 +1,6 @@
 class LRUCache {
 public:
-    unordered_map<int, list<pair<int, int>>::iterator> cache_map;
+    unordered_map<int, list<pair<int, int>>:: iterator> cache_map;
     list<pair<int, int>> cache;
     int capacity;
     
@@ -8,6 +8,7 @@ public:
         this->capacity = capacity;
         cache.clear();
     }
+    
     
     int get(int key) {
         if(cache_map.find(key) == cache_map.end())
