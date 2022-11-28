@@ -24,6 +24,6 @@ public:
             }
         }
         
-        return stk.empty() ? true : false;
+        return stk.empty();
     }
 };
