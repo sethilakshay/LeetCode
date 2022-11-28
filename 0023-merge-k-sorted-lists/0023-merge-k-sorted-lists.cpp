@@ -11,29 +11,32 @@
 class Solution {
 public:
     ListNode* merge(ListNode* list1, ListNode* list2){
+        ListNode* temp1 = list1;
+        ListNode* temp2 = list2;
+        
         ListNode* out = new ListNode(INT_MIN);
         ListNode* temp = out;
         
-        while(list1 != NULL && list2 != NULL){
-    
-            if(list1->val < list2->val){
-                temp->next = new ListNode(list1->val);
+        while(temp1 != NULL && temp2 != NULL){
+            
+            if(temp1->val <= temp2->val){
+                temp->next = new ListNode(temp1->val);
                 temp = temp->next;
-                list1 = list1->next;
+                temp1 = temp1->next;
             }
             else{
-                temp->next = new ListNode(list2->val);
+                temp->next = new ListNode(temp2->val);
                 temp = temp->next;
-                list2 = list2->next;
+                temp2 = temp2->next;
             }
         }
         
-        if(list1 != NULL){
-            temp->next = list1;
+        if(temp1 != NULL){
+            temp->next = temp1;
         }
         
-        if(list2 != NULL){
-            temp->next = list2;
+        if(temp2 != NULL){
+            temp->next = temp2;
         }
         
         return out->next;
@@ -45,21 +48,21 @@ public:
         }
         
         while(lists.size() > 1){
-            
             vector<ListNode*> temp;
-            
             int i, n = lists.size();
+            
             for(i=1; i<n; i+=2){
-                
-                temp.push_back(merge(lists[i-1], lists[i]));
+                temp.push_back(merge(lists[i], lists[i-1]));
             }
             
-            if(i == n){
+            if(i==n){
                 temp.push_back(lists[n-1]);
             }
+            
             lists = temp;
         }
         
         return lists[0];
+        
     }
 };
