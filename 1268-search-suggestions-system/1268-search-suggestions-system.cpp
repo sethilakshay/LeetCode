@@ -6,8 +6,8 @@ public:
     };
     
     TrieNode* root = new TrieNode();
-    //Function to build the tree
     
+    //Function to build the tree
     void buildTree(vector<string>& products){
         
         for(int i=0; i<products.size(); i++){
