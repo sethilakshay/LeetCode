@@ -1,21 +1,32 @@
 class Solution {
 public:
-    void dfs(int r, int c, vector<vector<char>>& grid, vector<vector<bool>>& visited){
+    void bfs(int r, int c, vector<vector<char>>& grid, vector<vector<bool>>& visited){
         
         int row = grid.size(), col = grid[0].size();
         
-        if(!(r >= 0 && r < row && c >= 0 && c < col && grid[r][c] == '1' && visited[r][c] == false)){
-            return;
-        }
+        vector<pair<int, int>> dirs = {{0,1}, {0,-1}, {1,0}, {-1,0}};
+        queue<pair<int, int>> q;
         
+        q.push({r,c});
         visited[r][c] = true;
         
-        dfs(r+1, c, grid, visited);
-        dfs(r-1, c, grid, visited);
-        dfs(r, c+1, grid, visited);
-        dfs(r, c-1, grid, visited);
-        
-        return;
+        while(!q.empty()){
+            pair curr = q.front();
+            q.pop();
+            
+            for(int i=0; i<dirs.size(); i++){
+                int mod_r = curr.first + dirs[i].first;
+                int mod_c = curr.second + dirs[i].second;
+                
+                if(mod_r >= 0 && mod_r < row && mod_c >= 0 && mod_c < col){
+                    if(grid[mod_r][mod_c] == '1' && visited[mod_r][mod_c] == false){
+                        
+                        visited[mod_r][mod_c] = true;
+                        q.push({mod_r, mod_c});
+                    }
+                }
+            }
+        }
     }
     
     int numIslands(vector<vector<char>>& grid) {
@@ -29,7 +40,7 @@ public:
                 
                 if(grid[i][j] == '1' && visited[i][j] == false){
                     res++;
-                    dfs(i, j, grid, visited);
+                    bfs(i, j, grid, visited);
                 }
             }
         }
