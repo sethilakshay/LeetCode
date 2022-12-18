@@ -11,28 +11,31 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        
         ListNode* walker = head;
         ListNode* runner = head;
-        stack<int> stk;
+        
+        stack<int> pal_stk;
         
         while(runner != NULL && runner->next != NULL){
-            stk.push(walker->val);
+            
+            pal_stk.push(walker->val);
             walker = walker->next;
             runner = runner->next->next;
         }
         
+        // To check if there are even/ odd numbers of elements in linked list
         if(runner != NULL){
             walker = walker->next;
         }
         
         while(walker != NULL){
             
-            if(stk.empty() || stk.top() != walker->val){
+            if(walker->val != pal_stk.top()){
                 return false;
             }
+            
             walker = walker->next;
-            stk.pop();
+            pal_stk.pop();
         }
         return true;
     }
