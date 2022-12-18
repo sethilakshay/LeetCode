@@ -1,22 +1,22 @@
 class Solution {
 public:
     string decodeString(string s) {
-        string res = "";
-        stack<char> stk;
         
-        for(int i = 0; i<s.size(); i++){
+        stack<char> stk;
+        for(int i=0; i<s.size(); i++){
+            
             if(s[i] != ']'){
                 stk.push(s[i]);
             }
+
             else{
-                string curr = "";
-                
+                string curr_str = "";
                 while(stk.top() != '['){
-                    curr = stk.top() + curr;
+                    curr_str = stk.top() + curr_str;
                     stk.pop();
                 }
                 
-                stk.pop();
+                stk.pop();  //To remove this [
                 string num = "";
                 
                 while(!stk.empty() && isdigit(stk.top())){
@@ -24,21 +24,21 @@ public:
                     stk.pop();
                 }
                 
-                int n = stoi(num);
-                
-                while(n > 0){
-                    for(char c: curr){
-                        stk.push(c);
-                    }
-                    n--;
+                int repeat = stoi(num);
+                while(repeat--){
+                    
+                    for(int k=0; k<curr_str.size(); k++)
+                        stk.push(curr_str[k]);
                 }
             }
         }
         
+        string res = "";
         while(!stk.empty()){
             res = stk.top() + res;
             stk.pop();
         }
+        
         return res;
     }
 };
