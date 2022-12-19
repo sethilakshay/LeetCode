@@ -1,35 +1,36 @@
 class Solution {
 public:
-    bool dfs(vector<vector<char>>& board, string word, vector<vector<bool>>& visited, int r, int c, int idx){
-        int row = board.size(), col = board[0].size();
-        if(idx == word.size()){
+
+    bool find(vector<vector<char>>& board, string& word, int indx, vector<vector<bool>>& visited, int i, int j){ 
+        if(indx == word.size()){
             return true;
         }
+        int row = board.size(), col = board[0].size();
         
-        if(!(r>=0 && r<row && c>=0 && c<col && visited[r][c]==false && board[r][c]==word[idx])){
+        if (i<0 || j<0 || i>=row || j>=col || word[indx]!=board[i][j] || visited[i][j]==true){
             return false;
         }
-
-        visited[r][c] = true;
-        bool res;
         
-        res = res || dfs(board, word, visited, r+1, c, idx+1);
-        res = res || dfs(board, word, visited, r-1, c, idx+1);
-        res = res || dfs(board, word, visited, r, c+1, idx+1);
-        res = res || dfs(board, word, visited, r, c-1, idx+1);
+        bool res=false;
         
-        visited[r][c] = false;
+        visited[i][j]=true;
+        
+        res = res || find(board, word, indx+1, visited, i+1, j);
+        res = res || find(board, word, indx+1, visited, i-1, j);
+        res = res || find(board, word, indx+1, visited, i, j+1);
+        res = res || find(board, word, indx+1, visited, i, j-1);
+        
+        visited[i][j]=false;
         return res;
     }
-    bool exist(vector<vector<char>>& board, string word) {
-        
+    bool exist(vector<vector<char>>& board, string& word){
         int row = board.size(), col = board[0].size();
-        vector<vector<bool>> visited(row, vector<bool> (col, false));
+        vector<vector<bool>> visited(row, vector<bool>(col, false));
         
-        for(int i=0; i<row; i++){
-            for(int j=0; j<col; j++){
-                
-                if(dfs(board, word, visited, i, j, 0)){
+        for (int i=0; i<row; i++){
+            for (int j=0; j<col; j++){
+                bool res = find(board, word, 0, visited, i, j);
+                if (res){
                     return true;
                 }
             }
