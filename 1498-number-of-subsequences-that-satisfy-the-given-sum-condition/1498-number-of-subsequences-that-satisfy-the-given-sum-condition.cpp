@@ -32,12 +32,12 @@ public:
             int power = hi-i;
             long long prev = 1, curr = 1;
             while(power > 30){
-                curr = (((int) pow(2, 30) % mod) * (prev % mod)) % mod;
+                curr = ((int) pow(2, 30) * prev) % mod;
                 curr %= mod;
                 prev = curr;
                 power -= 30;
             }
-            res += ((curr%mod) * ((long long) pow(2, power)%mod)) % mod;
+            res += (curr * (int) pow(2, power)) % mod;
             res %= mod;
         }
         return res;
