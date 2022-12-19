@@ -1,37 +1,40 @@
 class Solution {
 public:
-    unordered_map<char, string> mapping;
-    vector<string> res;
     
-    void buildWord(string& digits, string curr_str, int idx){
+    void findComb(string& digits, int idx, string curr, unordered_map<char, string>& hash_map,
+    vector<string>& res){
         
-        if(curr_str.size() == digits.size()){
-            res.push_back(curr_str);
+        // Base Case
+        if(curr.size() == digits.size()){
+            res.push_back(curr);
             return;
         }
         
-        for(char c: mapping[digits[idx]]){
-            
-            buildWord(digits, curr_str+c, idx+1);
+        // Recursive Case
+        
+        for(char c: hash_map[digits[idx]]){
+            findComb(digits, idx + 1, curr + c, hash_map, res);
         }
         return;
     }
     vector<string> letterCombinations(string digits) {
-
         if(digits.size()==0){
             return {};
         }
         
-        mapping['2'] = "abc";
-        mapping['3'] = "def";
-        mapping['4'] = "ghi";
-        mapping['5'] = "jkl";
-        mapping['6'] = "mno";
-        mapping['7'] = "pqrs";
-        mapping['8'] = "tuv";
-        mapping['9'] = "wxyz";
-    
-        buildWord(digits, "", 0);
+        unordered_map<char, string> hash_map;
+        vector<string> res;
+        
+        hash_map['2'] = "abc";
+        hash_map['3'] = "def";
+        hash_map['4'] = "ghi";
+        hash_map['5'] = "jkl";
+        hash_map['6'] = "mno";
+        hash_map['7'] = "pqrs";
+        hash_map['8'] = "tuv";
+        hash_map['9'] = "wxyz";
+        
+        findComb(digits, 0, "", hash_map, res);
         
         return res;
     }
