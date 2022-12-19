@@ -8,15 +8,16 @@ public:
         while(j < nums.size() && i <= j){
             
             window_sum += nums[j];
+            window_len = j-i+1;
             
-            while((j-i+1)*nums[j]-window_sum > k){
-                window_sum -= nums[i];
+            if(window_len*nums[j]-window_sum <= k){
+                res = max(res, window_len);
+                j++;
+            }
+            else{
+                window_sum -= nums[i] + nums[j];
                 i++;
             }
-
-            res = max(res, j-i+1);
-            j++;
-
         }
         
         return res;
