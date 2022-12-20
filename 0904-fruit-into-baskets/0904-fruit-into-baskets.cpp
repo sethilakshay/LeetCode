@@ -11,13 +11,14 @@ public:
             } else if(idx2 == -1 || fruits[i] == fruits[idx2]){
                 idx2 = i;
             } else {
-                res = max(res, count-1);
+                
                 count = abs(idx1 - idx2) + 1;
                 idx1 = i-1;
                 idx2 = i;
-            } 
+            }
+            res = max(res, count);
         }
-        res = max(res, count);
+        //res = max(res, count);
         return res;
     }
 };
