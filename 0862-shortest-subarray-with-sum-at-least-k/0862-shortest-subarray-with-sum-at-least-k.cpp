@@ -18,11 +18,13 @@ public:
                 res = min(res, i+1);    // Finding result when condition gets satisfied
             }
             
+            // Similar technique employed like the sliding window
             while(!dq.empty() && pref_sum[i] - pref_sum[dq.front()] >= k){
                 res = min(res, i - dq.front());
                 dq.pop_front();
             }
             
+            // To ensure that the queue remains monotonically increasing
             while(!dq.empty() && pref_sum[dq.back()] >= pref_sum[i]){
                 dq.pop_back();
             }
