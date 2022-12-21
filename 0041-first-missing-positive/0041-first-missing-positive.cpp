@@ -4,32 +4,32 @@ public:
         
         int n = nums.size(), i = 0, j = n-1;
         
+        // To find the valid range and put the rest of the elements in the end
         while(i <= j){
-            if(1<= nums[i] && nums[i] <= n){
+            if(nums[i] >= 1 && nums[i] <= n){
                 i++;
             }
             else{
-                swap(nums[j], nums[i]);
+                swap(nums[i], nums[j]);
                 j--;
             }
         }
-
-        int valIdx = i;
         
-        for(int i=0; i<valIdx; i++){
+        int valIdx = i;
+        for(i = 0; i < valIdx; i++){
             
             if(nums[abs(nums[i]) - 1] > 0){
-                nums[abs(nums[i]) - 1]  *= -1;
+                nums[abs(nums[i]) - 1] *= -1;
             }
         }
         
-        for(int i=0; i<valIdx; i++){
+        for(i = 0; i < valIdx; i++){
             
             if(nums[i] > 0){
-                return i+1; 
+                return i+1;
             }
         }
         
-        return valIdx + 1;
+        return valIdx+1;
     }
 };
