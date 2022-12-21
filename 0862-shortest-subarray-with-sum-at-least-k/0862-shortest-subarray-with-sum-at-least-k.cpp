@@ -5,17 +5,17 @@ public:
         int n = nums.size(), res = INT_MAX;
         deque<int> dq;
         
-        vector<long long> pref_sum(n);
+        vector<long long> pref_sum(n);  // To store the prefix sum
         pref_sum[0] = nums[0];
         
         for(int i=0; i<n; i++){
             
             if(i>0){
-                pref_sum[i] = nums[i] + pref_sum[i-1];
+                pref_sum[i] = nums[i] + pref_sum[i-1];  // Computing the prefix sum
             }
             
             if(pref_sum[i] >= k){
-                res = min(res, i+1);
+                res = min(res, i+1);    // Finding result when condition gets satisfied
             }
             
             while(!dq.empty() && pref_sum[i] - pref_sum[dq.front()] >= k){
