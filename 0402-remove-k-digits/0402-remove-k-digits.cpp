@@ -1,6 +1,6 @@
 class Solution {
 public:
-    string removeKdigits(string& num, int k) {
+    string removeKdigits(string num, int k) {
         if(k >= num.size()){
             return "0";
         }
