@@ -20,7 +20,6 @@ public:
             
             while(!dq.empty() && pref_sum[i] - pref_sum[dq.front()] >= k){
                 res = min(res, i - dq.front());
-                    
                 dq.pop_front();
             }
             
