@@ -1,32 +1,34 @@
 class Solution {
 public:
-    int shortestSubarray(vector<int>& arr, int k) {
-        int ans = INT_MAX, n = arr.size();
+    int shortestSubarray(vector<int>& nums, int k) {
+        int n = nums.size(), res = INT_MAX;
+        
         deque<int> dq;
-        vector<long long> v(n); // Prefix array
-        v[0] = arr[0];
+        vector<long long> pref_sum(n); // Prefix array
+        pref_sum[0] = nums[0];
         
         for(int i=0; i<n; ++i) {
+            
             if(i > 0) {
-                v[i] = arr[i] + v[i-1]; // Prefix Sum
+                pref_sum[i] = nums[i] + pref_sum[i-1]; // Prefix Sum
             }
             
-            if(v[i] >= k) {
-                ans = min(ans, i+1); // The subarray 0'th to i'th index can be an answer
+            if(pref_sum[i] >= k) {
+                res = min(res, i+1); // The subarray 0'th to i'th index can be an answer
             }
             
-            while(size(dq) && v[i] - v[dq.front()] >= k) {
-                ans = min(ans, i - dq.front());
+            while(!dq.empty() && pref_sum[i] - pref_sum[dq.front()] >= k) {
+                res = min(res, i - dq.front());
                 dq.pop_front();
             }
             
-            while(size(dq) && v[dq.back()] >= v[i]) {
+            while(!dq.empty() && pref_sum[dq.back()] >= pref_sum[i]) {
                 dq.pop_back();
             }
             
             dq.push_back(i);
         }
         
-        return ans == INT_MAX ? -1 : ans;
+        return res == INT_MAX ? -1 : res;
     }
 };
