@@ -1,11 +1,14 @@
 class Solution {
 public:
+    // Harder version of Leetcode 209
     int shortestSubarray(vector<int>& nums, int k) {
-        int n = nums.size(), res = INT_MAX;
         
-        deque<int> dq_idx;
+        int n = nums.size(), res = INT_MAX;
         vector<long long> pref_sum(n, 0);
         pref_sum[0] = nums[0];
+        
+        // To store indexes of monotonically increasing sum
+        deque<int> monoDq;
         
         for(int i=0; i<n; i++){
             
@@ -17,16 +20,16 @@ public:
                 res = min(res, i+1);
             }
             
-            while(!dq_idx.empty() && pref_sum[i] - pref_sum[dq_idx.front()] >= k){
-                res = min(res, i - dq_idx.front());
-                dq_idx.pop_front();
+            while(!monoDq.empty() && pref_sum[i] - pref_sum[monoDq.front()] >= k){
+                res = min(res, i - monoDq.front());
+                monoDq.pop_front();
             }
             
-            while(!dq_idx.empty() && pref_sum[dq_idx.back()] > pref_sum[i]){
-                dq_idx.pop_back();
+            while(!monoDq.empty() && pref_sum[monoDq.back()] > pref_sum[i]){
+                monoDq.pop_back();
             }
             
-            dq_idx.push_back(i);
+            monoDq.push_back(i);
         }
         
         return res == INT_MAX ? -1 : res;
