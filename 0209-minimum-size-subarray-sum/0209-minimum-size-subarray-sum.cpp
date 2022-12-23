@@ -2,15 +2,15 @@ class Solution {
 public:
     int minSubArrayLen(int target, vector<int>& nums) {
         
-        int n = nums.size(), cumSum = 0, i = 0, j = 0, res = INT_MAX;
+        int n = nums.size(), i = 0, j = 0;
+        int cum_sum = 0, res = INT_MAX;
         
         while(j<n){
+            cum_sum += nums[j];
             
-            cumSum += nums[j];
-            
-            while(cumSum >= target && i<=j){
+            while(cum_sum >= target && i<=j){
                 res = min(res, j-i+1);
-                cumSum -= nums[i];
+                cum_sum -= nums[i];
                 i++;
             }
             j++;
