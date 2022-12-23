@@ -9,7 +9,7 @@ public:
         stack<char> stk;
         stk.push(num[0]);
         
-        for(int i=0; i<num.size(); i++){
+        for(int i=1; i<num.size(); i++){
             while(!stk.empty() && stk.top() > num[i] && k > 0){
                 k--;
                 stk.pop();
@@ -19,9 +19,7 @@ public:
                 stk.pop();
             }
             
-            if(i>0){
-                stk.push(num[i]);
-            }
+            stk.push(num[i]);
         }
         
         string res = "";
