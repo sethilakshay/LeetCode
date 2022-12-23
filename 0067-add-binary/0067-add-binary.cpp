@@ -2,39 +2,43 @@ class Solution {
 public:
     string addBinary(string a, string b) {
         
-        int i = a.size()-1, j = b.size()-1, carry = 0, curr_bit = 0;
         string res = "";
+        int i = a.size()-1, j = b.size()-1, carry = 0, currSum;
         
         while(i >= 0 && j >= 0){
+            currSum = ((a[i] - '0') + (b[j] - '0') + carry);
+            carry = currSum/2;
             
-            curr_bit = ((a[i] - '0') + (b[j] - '0') + carry)%2;
-            carry = ((a[i] - '0') + (b[j] - '0') + carry)/2;
-            
-            res = to_string(curr_bit) + res;
+            res.push_back(currSum%2 + '0');   
             
             i--;
             j--;
         }
         
         while(i >= 0){
-            curr_bit = ((a[i] - '0') + carry)%2;
-            carry = ((a[i] - '0') + carry)/2;
+            currSum = ((a[i] - '0') + carry);
+            carry = currSum/2;
             
-            res = to_string(curr_bit) + res;
+            res.push_back(currSum%2 + '0');      
+            
             i--;
         }
         
         while(j >= 0){
-            curr_bit = ((b[j] - '0') + carry)%2;
-            carry = ((b[j] - '0') + carry)/2;
+            currSum = ((b[j] - '0') + carry);
+            carry = currSum/2;
             
-            res = to_string(curr_bit) + res;
+            res.push_back(currSum%2 + '0');     
+            
             j--;
         }
         
-        if(carry==1)
-            res = to_string(carry) + res;
+        while(carry > 0){
+            res.push_back((carry%2) + '0');
+            carry = carry/2;
+        }
         
+        reverse(res.begin(), res.end());
         return res;
     }
 };
