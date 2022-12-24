@@ -19,11 +19,11 @@ public:
                     dp[i][j] = dp[i+1][j-1]*2;
                     int left = i+1, right  = j-1;
                     
-                    while(left <= j-1 && s[left] != s[i]){
+                    while(left <= right && s[left] != s[i]){
                         left++;
                     }
                     
-                    while(i+1 <= right && s[right] != s[j]){
+                    while(left <= right && s[right] != s[j]){
                         right--;
                     }
                     
