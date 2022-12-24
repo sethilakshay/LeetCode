@@ -15,33 +15,27 @@ public:
         ListNode* res = new ListNode(INT_MIN);
         ListNode* temp = res;
         
-        ListNode* temp1 = list1;
-        ListNode* temp2 = list2;
-        
-        while(temp1 != NULL && temp2 != NULL){
+        while(list1 != NULL && list2 != NULL){
             
-            if(temp1->val < temp2->val){
-                temp->next = new ListNode(temp1->val);
-                temp1 = temp1->next;
+            if(list1->val < list2->val){
+                temp->next = new ListNode(list1->val);
+                list1 = list1->next;
             }
             else{
-                temp->next = new ListNode (temp2->val);
-                temp2 = temp2->next;
+                temp->next = new ListNode (list2->val);
+                list2 = list2->next;
             }
             temp = temp->next;
         }
         
-        while(temp1 != NULL){
-            temp->next = new ListNode(temp1->val);
-            temp1 = temp1->next;
-            temp = temp->next;
+        if(list1 != NULL){
+            temp->next = list1;
         }
         
-        while(temp2 != NULL){
-            temp->next = new ListNode(temp2->val);
-            temp2 = temp2->next;
-            temp = temp->next;
+        if(list2 != NULL){
+            temp->next = list2;
         }
+        
         return res->next;
     }
     
