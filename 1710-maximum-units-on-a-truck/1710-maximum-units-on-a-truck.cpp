@@ -5,13 +5,15 @@ public:
         sort(boxTypes.begin(), boxTypes.end(), [](vector<int>& a, vector<int>& b){
             return a[1] > b[1];
         });
-        int i = 0, res = 0;
-        while(truckSize > 0 && i<boxTypes.size()){
+        
+        int res = 0;
+        
+        for(int i=0; i<boxTypes.size(); i++){
             
-            res += min(truckSize, boxTypes[i][0])*boxTypes[i][1];
-            truckSize = truckSize - min(truckSize, boxTypes[i][0]); 
-            
-            i++;
+            if(truckSize > 0){
+                res += min(truckSize, boxTypes[i][0])*boxTypes[i][1];
+                truckSize -= min(truckSize, boxTypes[i][0]);
+            }  
         }
         
         return res;
