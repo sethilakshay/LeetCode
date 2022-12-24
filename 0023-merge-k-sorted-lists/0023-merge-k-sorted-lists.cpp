@@ -10,7 +10,7 @@
  */
 class Solution {
 public:
-    ListNode* merge2Lists(ListNode*& list1, ListNode*& list2){
+    ListNode* merge2Lists(ListNode* list1, ListNode* list2){
         
         ListNode* res = new ListNode(INT_MIN);
         ListNode* temp = res;
