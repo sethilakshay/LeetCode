@@ -19,8 +19,8 @@ public:
                     string cnt_str = to_string(cnt);
                 
                     for(char c: cnt_str){
-                    chars[start] = c;
-                    start++;
+                        chars[start] = c;
+                        start++;
                     }
                 }
                 
