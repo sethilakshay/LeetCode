@@ -31,17 +31,14 @@ public:
             temp = temp->next;
         }
         
-        while(temp1 != NULL){
-            temp->next = new ListNode(temp1->val);
-            temp1 = temp1->next;  
-            temp = temp->next;
+        if(temp1 != NULL){
+            temp->next = temp1;
         }
         
-        while(temp2 != NULL){
-            temp->next = new ListNode(temp2->val);;
-            temp2 = temp2->next;  
-            temp = temp->next;
+        if(temp2 != NULL){
+            temp->next = temp2;
         }
+        
         return res->next;
     }
 };
