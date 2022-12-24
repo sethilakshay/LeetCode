@@ -14,6 +14,7 @@ public:
             currCnt = 1;
             
             if(hashSet.find(nums[i] - 1) == hashSet.end()){
+                
                 while(hashSet.find(nums[i]+currCnt) != hashSet.end()){
                     currCnt++;
                 }
