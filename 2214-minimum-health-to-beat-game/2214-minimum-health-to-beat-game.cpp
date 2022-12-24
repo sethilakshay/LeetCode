@@ -2,14 +2,14 @@ class Solution {
 public:
     long long minimumHealth(vector<int>& damage, int armor) {
         
+        long long sum_n = 0, max_n = 0, armor_n = armor;
         
-        long long totSum = 0;
-        int maxDamage = INT_MIN;
-        for(int i=0; i<damage.size(); i++){
-            totSum += damage[i];
-            maxDamage = max(damage[i], maxDamage);
+        for(long long n: damage){
+            sum_n += n;
+            max_n = max(n, max_n);
         }
         
-        return totSum - min(maxDamage, armor) + 1;
+        
+        return sum_n - min(max_n, armor_n) + 1;
     }
 };
