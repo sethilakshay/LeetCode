@@ -18,7 +18,7 @@ public:
         priority_queue<pair<char, int>, vector<pair<char, int>>, Compare> maxHeap;
         
         for(auto it = hashMap.begin(); it != hashMap.end(); it++){
-            maxHeap.push(make_pair(it->first, it->second));
+            maxHeap.push({it->first, it->second});
         }
         
         string res = "";
