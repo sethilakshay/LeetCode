@@ -2,24 +2,24 @@ class Solution {
 public:
     int numDecodings(string s) {
         
-        int n = s.size(), i;
+        int n = s.size();
+        vector<int> dp(n+1, 0);
         
-        vector<int> dp(n+1);
-        
+        // When string is empty, 1 way to decode it
         dp[0] = 1;
         dp[1] = s[0] == '0' ? 0 : 1;
         
-        for(i=1; i<n; i++){
+        for(int i=1; i<n; i++){
             
-            if(s[i] != '0')
+            if(s[i] != '0'){
                 dp[i+1] = dp[i];
+            }
             
             if(s[i-1] == '1' || (s[i-1] == '2' && s[i] <= '6')){
                 dp[i+1] += dp[i-1];
             }
-            
         }
-        return dp[n];
         
+        return dp[n];
     }
 };
