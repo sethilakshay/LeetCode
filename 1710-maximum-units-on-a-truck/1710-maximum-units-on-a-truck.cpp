@@ -9,7 +9,7 @@ public:
         while(truckSize > 0 && i<boxTypes.size()){
             
             res += min(truckSize, boxTypes[i][0])*boxTypes[i][1];
-            truckSize -= min(truckSize, boxTypes[i][0]); 
+            truckSize = truckSize - min(truckSize, boxTypes[i][0]); 
             
             i++;
         }
