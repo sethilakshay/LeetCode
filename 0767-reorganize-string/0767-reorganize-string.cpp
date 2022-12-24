@@ -1,32 +1,39 @@
+class Compare{
+public:
+    bool operator ()(pair<char, int> a, pair<char, int> b){
+        return a.second < b.second;
+    }
+};
+
 class Solution {
 public:
     string reorganizeString(string s) {
         
-        unordered_map<char, int> hash_map;
-        priority_queue<pair<int, char>> max_heap;
+        unordered_map<char, int> hashMap;
         
         for(char c: s){
-            hash_map[c]++;
+            hashMap[c]++;
         }
         
-        for(auto it = hash_map.begin(); it != hash_map.end(); it++){
-            max_heap.push(make_pair(it->second, it->first));
+        priority_queue<pair<char, int>, vector<pair<char, int>>, Compare> maxHeap;
+        
+        for(auto it = hashMap.begin(); it != hashMap.end(); it++){
+            maxHeap.push(make_pair(it->first, it->second));
         }
         
-        pair<int, char> curr;
-        pair<int, char> prev;
         string res = "";
+        pair<char, int> curr;
+        pair<char, int> prev;
         
-        while(!max_heap.empty()){
+        while(!maxHeap.empty()){
+            curr = maxHeap.top();
+            maxHeap.pop();
             
-            curr = max_heap.top();
-            max_heap.pop();
+            res += curr.first;
+            curr.second--;
             
-            res += curr.second;
-            curr.first--;
-            
-            if(prev.first != 0){
-                max_heap.push(prev);
+            if(prev.second != 0){
+                maxHeap.push(prev);
             }
             
             prev = curr;
