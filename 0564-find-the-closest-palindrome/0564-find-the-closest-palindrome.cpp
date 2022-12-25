@@ -3,48 +3,48 @@ public:
     string nearestPalindromic(string n) {
         int digits = n.size();
         
-        if(digits == 1){
+        if(digits==1)
             return to_string(stoi(n)-1);
-        }
         
-        vector<long> posPal;
-        // Case 1: 1, 11, 101, 1001, 10001.....
-        posPal.push_back(pow(10, digits) + 1);
-        posPal.push_back(pow(10, digits-1) + 1);
+        vector<long> res;
+        res.push_back(pow(10, digits)+1);  //Case 1: 1, 11, 101, 1001, 10001.....
+        res.push_back(pow(10, digits-1)+1); //Case 1: 1, 11, 101, 1001, 10001.....
         
-        // Case 2: 9, 99, 999, 9999, 99999......
-        posPal.push_back(pow(10, digits) - 1);
-        posPal.push_back(pow(10, digits-1) - 1);
+        res.push_back(pow(10, digits)-1);  //Case 2: 9, 99, 999, 9999.......
+        res.push_back(pow(10, digits-1)-1);  //Case 2: 9, 99, 999, 9999.......
         
-        // Case 3: Taking middle number and making its 3 palindromes
-        
-        string mid = n.substr(0, (digits+1)/2);
-        long midNum = stol(mid);
+        // Case 3: Dividing the prefix at mid-point and making that a palindrome
+        // 3 Cases: to find mid-1, mid and mid+1 palindromes
+        int mid = (digits+1)/2;
+        long prefix = stol(n.substr(0, mid));
         
         for(int i=0; i<3; i++){
-            string prefix = to_string(midNum - 1 + i);
-            string pref_rev = prefix;
+            string pref = to_string(prefix-1+i);
+            string pref_rev = pref; // Normal case for even digits
             
-            if(digits%2 != 0){
+            // In case if we have an odd number, then other half will have 1 less digit
+            if(digits%2 != 0)
                 pref_rev = pref_rev.substr(0, pref_rev.size()-1);
-            }
-            
+
             reverse(pref_rev.begin(), pref_rev.end());
-            posPal.push_back(stol(prefix + pref_rev));
-        }
-        
-        long diff = LONG_MAX, res = 0, num = stol(n);
-        
-        for(int i=0; i<posPal.size(); i++){
+            string temp_res = pref + pref_rev;
             
-            if(abs(posPal[i] - num) < diff && posPal[i] != num){
-                diff = abs(posPal[i] - num);
-                res = posPal[i];
+            res.push_back(stol(temp_res));
+        }
+        
+        long diff = LONG_MAX, num = stol(n), ans = 0;
+        
+        for(int i=0; i<7; i++){ 
+            
+            if (abs(res[i]-num) < diff && res[i]!=num){
+                diff = abs(res[i]-num);
+                ans = res[i];
             }
-            else if(abs(posPal[i] - num) == diff && posPal[i] != num && posPal[i] < res){
-                res = posPal[i];
+            
+            else if((abs(res[i]-num) == diff) && (res[i]<ans)){
+                ans = res[i];
             }
         }
-        return to_string(res);
+        return to_string(ans);
     }
 };
