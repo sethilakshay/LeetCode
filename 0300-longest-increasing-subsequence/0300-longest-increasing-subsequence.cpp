@@ -1,19 +1,19 @@
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size(), i, j, res = 1;
         
-        int n = nums.size(), res = INT_MIN;
+        //Creating a DP vector and initializing all to 1 bcz the minimum length can be 1
         vector<int> dp(n, 1);
         
-        for(int i=1; i<n; i++){
-            for(int j=i; j>=0; j--){
-                if(nums[j] < nums[i]){
-                    dp[i] = max(1 + dp[j], dp[i]);
-                    res = max(res, dp[i]);
-                }
+        for(i=1; i<n; i++){
+            for(j=i-1; j>=0; j--){
+                //Comparing all the cases for the below condition
+                if(nums[j] < nums[i])
+                    dp[i] = max(dp[i], 1 + dp[j]);
             }
+            res = max(res, dp[i]);
         }
-        
-        return res == INT_MIN ? 1 : res;
+        return res;
     }
 };
