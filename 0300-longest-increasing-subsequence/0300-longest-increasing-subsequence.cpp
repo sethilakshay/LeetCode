@@ -1,20 +1,30 @@
 class Solution {
 public:
-    // TC : O(n^2)
     int lengthOfLIS(vector<int>& nums) {
-        int n = nums.size(), i, j, res = 1;
         
-        //Creating a DP vector and initializing all to 1 bcz the minimum length can be 1
-        vector<int> dp(n, 1);
+        vector<int> res;
         
-        for(i=1; i<n; i++){
-            for(j=i-1; j>=0; j--){
-                //Comparing all the cases for the below condition
-                if(nums[j] < nums[i])
-                    dp[i] = max(dp[i], 1 + dp[j]);
+        for(int i=0; i<nums.size(); i++){
+            if(res.size()==0 || res.back() < nums[i]){
+                res.push_back(nums[i]);
             }
-            res = max(res, dp[i]);
+            else{
+                int lo = 0, hi = res.size() - 1, mid;
+                
+                while(lo<hi){
+                    mid = lo + (hi-lo)/2;
+                    
+                    if(res[mid] >= nums[i]){
+                        hi = mid;
+                    }
+                    else{
+                        lo = mid+1;
+                    }
+                }
+                
+                res[lo] = nums[i];
+            }
         }
-        return res;
+        return res.size();
     }
 };
