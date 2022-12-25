@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // TC : O(n^2)
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size(), i, j, res = 1;
         
