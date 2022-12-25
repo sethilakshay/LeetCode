@@ -19,8 +19,9 @@ public:
             }
             
             if(hash_map.find(rem) != hash_map.end()){
-                if(i - hash_map[rem] >= 2)
+                if(i - hash_map[rem] >= 2){
                     return true;
+                }
             }
             else{
                 hash_map[rem] = i;
