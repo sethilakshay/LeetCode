@@ -3,12 +3,12 @@ public:
     priority_queue<int> maxq;
     priority_queue<int, vector<int>, greater<>> minq;
     
-    MedianFinder() {
+    MedianFinder() { 
     }
-
+    
     void addNum(int num) {
         
-        if(maxq.size() == minq.size()){
+        if(minq.size() == maxq.size()){
             minq.push(num);
             maxq.push(minq.top());
             minq.pop();
@@ -21,9 +21,8 @@ public:
     }
     
     double findMedian() {
-        
-        if(maxq.size() == minq.size()){
-            return (double) (maxq.top() + minq.top())/2;
+        if(minq.size() == maxq.size()){
+            return (double) (minq.top() + maxq.top())/2;
         }
         else{
             return (double) maxq.top();
