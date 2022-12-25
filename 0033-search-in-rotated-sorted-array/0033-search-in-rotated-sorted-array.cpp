@@ -24,9 +24,8 @@ public:
             if(nums[lo] < nums[hi]){
                 break;
             }
-            
-            mid = lo + (hi-lo)/2;
-            
+
+            mid = lo + (hi-lo)/2;            
             if(nums[mid] >= (nums[lo] + nums[hi])/2){
                 lo = mid+1;
             }
