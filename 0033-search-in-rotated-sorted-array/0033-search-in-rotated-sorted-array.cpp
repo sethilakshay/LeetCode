@@ -2,9 +2,8 @@ class Solution {
 public:
     int binSearch(int lo, int hi, int target, vector<int>& nums){
         int mid;
-        
-        while(lo<=hi){
-            mid  = lo + (hi-lo)/2;
+        while(lo <= hi){
+            mid = lo + (hi-lo)/2;
             
             if(nums[mid] == target){
                 return mid;
@@ -21,22 +20,18 @@ public:
     int search(vector<int>& nums, int target) {
         
         int lo = 0, hi = nums.size()-1, mid;
-        int pivot;
-        
         while(lo<hi){
+            if(nums[lo] < nums[hi]){
+                break;
+            }
             
-            if(nums[lo] > nums[hi]){
-                mid = lo + (hi-lo)/2;
-
-                if(nums[mid] <= (nums[lo] + nums[hi])/2){
-                    hi = mid;
-                }
-                else{
-                    lo = mid+1;
-                }
+            mid = lo + (hi-lo)/2;
+            
+            if(nums[mid] >= (nums[lo] + nums[hi])/2){
+                lo = mid+1;
             }
             else{
-                break;
+                hi = mid;
             }
         }
         
