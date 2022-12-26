@@ -2,22 +2,23 @@ class Solution {
 public:
     int countPalindromicSubsequences(string s) {
         
-        int n = s.size(), mod = 1e9 + 7;
-        // DP n*n vector to store the palindromic subsequences encountered earlier
-        vector<vector<long>> dp(n, vector<long> (n, 0));
+        int n = s.size(), mod = 1e9+7;
         
-        // DP recurrence
+        vector<vector<int>> dp(n, vector<int>(n, 0));
+
         
-        for(int i = n-1; i >= 0; i--){
+        for(int i=n-1; i>=0; i--){
             dp[i][i] = 1;
-            for(int j = i+1; j < n; j++){
+            
+            for(int j=i+1; j<n; j++){
                 
                 if(s[i] != s[j]){
-                    dp[i][j] = dp[i+1][j] + dp[i][j-1] - dp[i+1][j-1];
+                    dp[i][j] = dp[i][j-1] + dp[i+1][j] - dp[i+1][j-1];
                 }
+                // if s[i] == s[j] then 3 cases
                 else{
-                    dp[i][j] = dp[i+1][j-1]*2;
-                    int left = i+1, right  = j-1;
+                    dp[i][j] = 2*dp[i+1][j-1];
+                    int left = i+1, right = j-1;
                     
                     while(left <= j-1 && s[left] != s[i]){
                         left++;
@@ -27,6 +28,7 @@ public:
                         right--;
                     }
                     
+                    // Case 1: means no char = s[i] in Palindrome
                     if(left > right){
                         dp[i][j] += 2;
                     }
@@ -37,16 +39,12 @@ public:
                         dp[i][j] -= dp[left+1][right-1];
                     }
                 }
-                
                 dp[i][j] %= mod;
-                
-                // Number should not be negative after modding
                 if(dp[i][j] < 0){
                     dp[i][j] += mod;
                 }
             }
         }
-        
         return dp[0][n-1];
     }
 };
