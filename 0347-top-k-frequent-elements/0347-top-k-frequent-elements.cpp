@@ -1,9 +1,3 @@
-class compare{
-  public:
-    bool operator()(pair<int, int>& a, pair<int, int>& b){
-        return b.first<a.first;
-    }
-};
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
@@ -14,19 +8,14 @@ public:
             hash_map[num]++;
         }
         
-        priority_queue<pair<int, int>, vector<pair<int, int>>, compare> min_heap;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> min_heap;
         vector<int> res;
         
         for(auto it=hash_map.begin(); it!=hash_map.end(); it++){
+            min_heap.push({it->second, it->first});
             
-            if(min_heap.size() < k){
-                min_heap.push({it->second, it->first});
-            }
-            else{
-                if(min_heap.top().first < it->second){
-                    min_heap.pop();
-                    min_heap.push({it->second, it->first});
-                }
+            if(min_heap.size() > k){
+                min_heap.pop();
             }
         }
         
