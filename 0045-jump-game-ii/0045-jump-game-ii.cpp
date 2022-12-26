@@ -11,11 +11,11 @@ public:
             farthest = 0;
             
             for(int i=left; i<=right; i++){
-                farthest = max(farthest, i+nums[i]);
+                farthest = max(farthest, i-right+nums[i]);
             }
             
             left = right+1;
-            right = farthest;
+            right += farthest;
             res++;
         }
         return res;
