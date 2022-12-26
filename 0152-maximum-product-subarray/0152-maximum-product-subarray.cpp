@@ -4,20 +4,21 @@ public:
         
         int n = nums.size(), res;
         
-        vector<int> maxProd(n);
-        vector<int> minProd(n);
+        int curr_max, prev_max;
+        int curr_min, prev_min;
         
-        maxProd[0] = nums[0];
-        minProd[0] = nums[0];
+        prev_max = nums[0];
+        prev_min = nums[0];
         res = nums[0];
         
         for(int i=1; i<n; i++){
             
-            maxProd[i] = max(nums[i], max(nums[i]*maxProd[i-1], nums[i]*minProd[i-1]));
-            minProd[i] = min(nums[i], min(nums[i]*maxProd[i-1], nums[i]*minProd[i-1]));
+            curr_max = max(nums[i], max(nums[i]*prev_max, nums[i]*prev_min));
+            curr_min = min(nums[i], min(nums[i]*prev_max, nums[i]*prev_min));
             
-            res = max(res, maxProd[i]);
-                             
+            res = max(res, curr_max);
+            prev_max = curr_max;
+            prev_min = curr_min;        
         }
         return res;
     }
