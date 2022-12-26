@@ -1,52 +1,65 @@
 class Solution {
 public:
-    int orangesRotting(vector<vector<int>>& grid) {
-        int fresh = 0, row = grid.size(), col = grid[0].size(), res = -1, cnt_fresh = 0;
-        queue <pair<int, int>> q;
+    void bfs(pair<int, int>& pos, vector<vector<int>>& grid, vector<pair<int, int>>& rotten){
+        vector<pair<int, int>> directions = {{0,1}, {0,-1}, {1,0}, {-1,0}};
         
-        for(int i=0; i<row; i++){
+        int row = grid.size(), col = grid[0].size(), temp_r, temp_c;
+        
+        for(int i=0; i<directions.size(); i++){
             
-            for(int j=0; j<col; j++){
-                
-                if(grid[i][j] == 1)
-                    fresh++;
-                
-                if(grid[i][j] == 2)
-                    q.push({i, j});
+            temp_r = pos.first + directions[i].first;
+            temp_c = pos.second + directions[i].second;
+            
+            if(temp_r>=0 && temp_r<row && temp_c>=0 && temp_c<col && grid[temp_r][temp_c] == 1){
+                grid[temp_r][temp_c] = 2;
+                rotten.push_back({temp_r, temp_c});
+            }
+            else{
+                continue;
             }
         }
+    }
         
-        vector<pair<int, int>> dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
-        while(!q.empty()){
-            
-            int n = q.size();
-            res++;
-            
-            while(n--){
-                int new_r = q.front().first;
-                int new_c = q.front().second;
-                q.pop();
-
-                for(int i=0; i<dirs.size(); i++){
-                    int mod_r = new_r + dirs[i].first;
-                    int mod_c = new_c + dirs[i].second;
-
-                    if(0<=mod_r && mod_r<row && 0<=mod_c && mod_c<col){
-                        if(grid[mod_r][mod_c] == 1){
-                            grid[mod_r][mod_c] = 2;
-                            cnt_fresh++;
-                            q.push({mod_r, mod_c});
-                        }
-                    }
+        
+    int orangesRotting(vector<vector<int>>& grid) {
+        
+        int row = grid.size(), col = grid[0].size();
+        int fresh = 0, res = 0;
+        
+        vector<pair<int, int>> rotten;
+        
+        for(int i=0; i<row; i++){
+            for(int j=0; j<col; j++){
+                if(grid[i][j] == 1){
+                    fresh++;
+                }
+                if(grid[i][j] == 2){
+                    rotten.push_back({i, j});
                 }
             }
         }
-        if (cnt_fresh != fresh)
-            return -1;
         
-        if(fresh==0)
+        if(fresh==0){
             return 0;
+        }
         
-        return res;
+        bool chck = true;
+        while(chck && fresh > 0){
+            
+            vector<pair<int, int>> rotten_temp;
+            
+            for(int i=0; i<rotten.size(); i++){
+                bfs(rotten[i], grid, rotten_temp);
+            }
+            res++;
+            
+            if(rotten_temp.size() == 0){
+                chck = false;
+            }
+            rotten = rotten_temp;
+            fresh -= rotten.size();
+        }
+        
+        return fresh != 0 ? -1 : res;
     }
 };
