@@ -1,40 +1,37 @@
 class Solution {
 public:
-    void n_queen(int& n, int row, vector<vector<string>>& res, vector<string>& currSet, vector<bool>& col_visit, vector<bool>& pdiag_visit, vector<bool>& scdiag_visit){
-        
-        if(row==n){
-            res.push_back(currSet);
+    void queen(int row, int& n, vector<bool>& colVis, vector<bool>& pDiag, vector<bool>& sDiag, vector<vector<string>>& res, vector<string>& curr){
+        // Base Case
+        if(row == n){
+            res.push_back(curr);
             return;
         }
         
         for(int col = 0; col<n; col++){
             
-            if(col_visit[col] || pdiag_visit[col-row+n] || scdiag_visit[row+col])
+            if(colVis[col] || pDiag[col-row+n] || sDiag[row+col]){
                 continue;
+            }
             
-            currSet[row][col] = 'Q';
-            col_visit[col] = pdiag_visit[col-row+n] = scdiag_visit[row+col] = true;
+            curr[row][col] = 'Q';
+            colVis[col] = pDiag[col-row+n] = sDiag[row+col] = true;
             
-            n_queen(n, row+1, res, currSet, col_visit, pdiag_visit, scdiag_visit);
+            queen(row+1, n, colVis, pDiag, sDiag, res, curr);
             
-            currSet[row][col] = '.';
-            col_visit[col] = pdiag_visit[col-row+n] = scdiag_visit[row+col] = false;
-        }
-        
-        return;
+            curr[row][col] = '.';
+            colVis[col] = pDiag[col-row+n] = sDiag[row+col] = false;
+        }   
     }
-    
     vector<vector<string>> solveNQueens(int n) {
         
+        vector<bool> colVis(n, false);
+        vector<bool> pDiag(2*n-1, false);
+        vector<bool> sDiag(2*n-1, false);
+        
         vector<vector<string>> res;
-        vector<string> currSet (n, string(n, '.'));
+        vector<string> curr(n, string(n, '.'));
         
-        vector<bool> col_visit(n, false);
-        vector<bool> pdiag_visit(2*n-1, false);
-        vector<bool> scdiag_visit(2*n-1, false);
-        
-        n_queen(n, 0, res, currSet, col_visit, pdiag_visit, scdiag_visit);
-        
+        queen(0, n, colVis, pDiag, sDiag, res, curr);
         return res;
     }
 };
