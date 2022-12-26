@@ -1,9 +1,9 @@
 class Solution {
 public:
-    void nQueen(int row, int& n, vector<bool>& colVis, vector<bool>& pDiag, vector<bool>& sDiag, vector<string>& curr, vector<vector<string>>& res){
+    void nQueen(int row, int& n, vector<bool>& colVis, vector<bool>& pDiag, vector<bool>& sDiag, int& res){
         // Base Case
         if(row == n){
-            res.push_back(curr);
+            res++;
             return;
         }
         
@@ -13,14 +13,12 @@ public:
                 continue;
             }
             
-            curr[row][col] = 'Q';
             colVis[col] = true;
             pDiag[col-row+n] = true;
             sDiag[row+col] = true;
             
-            nQueen(row+1, n, colVis, pDiag, sDiag, curr, res);
+            nQueen(row+1, n, colVis, pDiag, sDiag, res);
             
-            curr[row][col] = '.';
             colVis[col] = false;
             pDiag[col-row+n] = false;
             sDiag[row+col] = false;
@@ -32,10 +30,9 @@ public:
         vector<bool> pDiag(2*n-1, false);
         vector<bool> sDiag(2*n-1, false);
         
-        vector<vector<string>> res;
-        vector<string> curr (n, string(n, '.'));
+        int res = 0;
         
-        nQueen(0, n, colVis, pDiag, sDiag, curr, res);
-        return res.size();
+        nQueen(0, n, colVis, pDiag, sDiag, res);
+        return res;
     }
 };
