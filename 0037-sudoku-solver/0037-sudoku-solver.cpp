@@ -1,64 +1,62 @@
 class Solution {
 public:
-    void sudoku(int row, int col, int& n, vector<vector<bool>>& rowChck, vector<vector<bool>>& colChck, vector<vector<bool>>& subSqChck, vector<vector<char>>& res, vector<vector<char>>& board){
-        // Base Case 1
-        if(row == n){
+    void buildBoard(int row, int col, vector<vector<char>>& board, vector<vector<char>>& res, vector<vector<bool>>& row_chck, vector<vector<bool>>& col_chck, vector<vector<bool>>& subsq_chck){
+        // Base Case
+        if(row == 9){
             res = board;
             return;
         }
         
-        // Base Case 2
         if(board[row][col] != '.'){
-            if(col < n-1){
-                sudoku(row, col+1, n, rowChck, colChck, subSqChck, res, board);
+            if(col<8){
+                buildBoard(row, col+1, board, res, row_chck, col_chck, subsq_chck);
             }
             else{
-                sudoku(row+1, 0, n, rowChck, colChck, subSqChck, res, board);
+                buildBoard(row+1, 0, board, res, row_chck, col_chck, subsq_chck);
             }
             return;
         }
         
-        // Recursive case
-        // Iterating from 0 to 8 to fill in the character
-        for(int i=0; i<n; i++){
-            if(rowChck[row][i] || colChck[col][i] || subSqChck[((row/3)*3)+(col/3)][i]){
+        // Recursive Case
+        for(int i=0; i<9; i++){
+            
+            if(row_chck[row][i] || col_chck[col][i] || subsq_chck[((row/3)*3) + (col/3)][i]){
                 continue;
             }
-                
-            rowChck[row][i] = colChck[col][i] = subSqChck[((row/3)*3)+(col/3)][i] = true;
-            board[row][col] = char(i+'1');
-
-            if(col < n-1){
-                sudoku(row, col+1, n, rowChck, colChck, subSqChck, res, board);
-            }
-            else{
-                sudoku(row+1, 0, n, rowChck, colChck, subSqChck, res, board);
-            }
-
-            rowChck[row][i] = colChck[col][i] = subSqChck[((row/3)*3)+(col/3)][i] = false;
+            
+            row_chck[row][i] = true;
+            col_chck[col][i] = true;
+            subsq_chck[((row/3)*3) + (col/3)][i] = true;
+            board[row][col] = (i + 1) + '0';
+            
+            buildBoard(row, col+1, board, res, row_chck, col_chck, subsq_chck);
+            
+            row_chck[row][i] = false;
+            col_chck[col][i] = false;
+            subsq_chck[((row/3)*3) + (col/3)][i] = false;
             board[row][col] = '.';
         }
+        return;
     }
     void solveSudoku(vector<vector<char>>& board) {
         
-        int n = 9;
+        int n = board.size();
         
-        vector<vector<bool>> rowChck(n, vector<bool> (n, false));
-        vector<vector<bool>> colChck(n, vector<bool> (n, false));
-        vector<vector<bool>> subSqChck(n, vector<bool> (n, false));
-        vector<vector<char>> res;
+        vector<vector<bool>> row_chck(n, vector<bool> (n, false));
+        vector<vector<bool>> col_chck(n, vector<bool> (n, false));
+        vector<vector<bool>> subsq_chck(n, vector<bool> (n, false));
         
         for(int row=0; row<n; row++){
             for(int col=0; col<n; col++){
                 if(board[row][col] != '.'){
-                    rowChck[row][board[row][col] - '1'] = true;
-                    colChck[col][board[row][col] - '1'] = true;
-                    subSqChck[((row/3)*3) + (col/3)][board[row][col] - '1'] = true;
+                    row_chck[row][board[row][col] - '1'] = true;
+                    col_chck[col][board[row][col] - '1'] = true;
+                    subsq_chck[((row/3)*3) + (col/3)][board[row][col] - '1'] = true;
                 }
             }
         }
-        
-        sudoku(0, 0, n, rowChck, colChck, subSqChck, res, board);
+        vector<vector<char>> res;
+        buildBoard(0, 0, board, res, row_chck, col_chck, subsq_chck);
         board = res;
     }
 };
