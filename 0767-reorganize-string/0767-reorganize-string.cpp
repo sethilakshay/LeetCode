@@ -1,44 +1,41 @@
-class Compare{
+class compare{
 public:
-    bool operator ()(pair<char, int> a, pair<char, int> b){
-        return a.second < b.second;
+    bool operator()(pair<char, int>& a, pair<char, int>& b){
+        return a.second<b.second;
     }
 };
-
 class Solution {
 public:
     string reorganizeString(string s) {
         
-        unordered_map<char, int> hashMap;
-        
+        unordered_map<char, int> hash_map;
         for(char c: s){
-            hashMap[c]++;
+            hash_map[c]++;
         }
         
-        priority_queue<pair<char, int>, vector<pair<char, int>>, Compare> maxHeap;
+        priority_queue<pair<char, int>, vector<pair<char, int>>, compare> max_heap;
         
-        for(auto it = hashMap.begin(); it != hashMap.end(); it++){
-            maxHeap.push({it->first, it->second});
+        for(auto it=hash_map.begin(); it!= hash_map.end(); it++){
+            max_heap.push({it->first, it->second});
         }
         
-        string res = "";
         pair<char, int> curr;
         pair<char, int> prev;
+        string res = "";
         
-        while(!maxHeap.empty()){
-            curr = maxHeap.top();
-            maxHeap.pop();
+        while(!max_heap.empty()){
+            
+            curr = max_heap.top();
+            max_heap.pop();
             
             res += curr.first;
             curr.second--;
             
-            if(prev.second != 0){
-                maxHeap.push(prev);
+            if(prev.second > 0){
+                max_heap.push(prev);
             }
-            
             prev = curr;
         }
-        
-        return res.size() == s.size() ? res : "";
+        return s.size() == res.size() ? res : "";
     }
 };
