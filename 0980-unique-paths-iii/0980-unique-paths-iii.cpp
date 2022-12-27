@@ -27,7 +27,7 @@ public:
         
         int row = grid.size(), col = grid[0].size();
         
-        int start_r, start_c, cnt_sq = 1;
+        int start_r, start_c, cnt_sq = 0;
         
         for(int i=0; i<row; i++){
             for(int j=0; j<col; j++){
@@ -37,6 +37,7 @@ public:
                 if(grid[i][j] == 1){
                     start_r = i;
                     start_c = j;
+                    cnt_sq++;
                 }
             }
         }
