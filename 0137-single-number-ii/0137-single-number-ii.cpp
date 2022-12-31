@@ -2,20 +2,20 @@ class Solution {
 public:
     int singleNumber(vector<int>& nums) {
         
-        int mask = 0, cnt, res = 0;
+        int count = 0, mask = 0, res = 0;
         
         for(int i=0; i<32; i++){
-
             mask = 1<<i;
-            cnt = 0;
+            count = 0;
             
-            for(int j=0; j<nums.size(); j++){
-                if((nums[j]&mask) != 0){
-                    cnt++;
-                }
+            for(int num: nums){
+                
+                if((num&mask) != 0){
+                    count++;
+                } 
             }
             
-            if(cnt%3 != 0){
+            if(count%3 != 0){
                 res = (res|mask);
             }
         }
