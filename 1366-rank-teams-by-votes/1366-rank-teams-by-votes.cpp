@@ -4,9 +4,9 @@ public:
         
         vector<vector<int>> freq(votes[0].size(), vector<int>(26, 0));
         
-        for(int i=0; i<votes.size(); i++){
-            for(int j=0; j<votes[0].size(); j++){
-                freq[j][votes[i][j] - 'A']++;
+        for(int i=0; i<votes[0].size(); i++){
+            for(string vote: votes){
+                freq[i][vote[i] - 'A']++;
             }
         }
         
