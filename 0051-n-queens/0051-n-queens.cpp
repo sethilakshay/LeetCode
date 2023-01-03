@@ -1,37 +1,37 @@
 class Solution {
 public:
-    void queen(int row, int& n, vector<bool>& colVis, vector<bool>& pDiag, vector<bool>& sDiag, vector<vector<string>>& res, vector<string>& curr){
-        // Base Case
+    void n_queen(int row, int n, vector<string>& curr, vector<vector<string>>& res, vector<bool>& col_chck, vector<bool>& pDiag_chck, vector<bool>& sDiag_chck){
+        
         if(row == n){
             res.push_back(curr);
             return;
         }
         
-        for(int col = 0; col<n; col++){
+        for(int col=0; col<n; col++){
             
-            if(colVis[col] || pDiag[col-row+n] || sDiag[row+col]){
+            if(col_chck[col] || pDiag_chck[col-row+n] || sDiag_chck[row+col]){
                 continue;
             }
             
+            col_chck[col] = pDiag_chck[col-row+n] = sDiag_chck[row+col] = true;
             curr[row][col] = 'Q';
-            colVis[col] = pDiag[col-row+n] = sDiag[row+col] = true;
             
-            queen(row+1, n, colVis, pDiag, sDiag, res, curr);
+            n_queen(row+1, n, curr, res, col_chck, pDiag_chck, sDiag_chck);
             
+            col_chck[col] = pDiag_chck[col-row+n] = sDiag_chck[row+col] = false;
             curr[row][col] = '.';
-            colVis[col] = pDiag[col-row+n] = sDiag[row+col] = false;
-        }   
+        }
     }
     vector<vector<string>> solveNQueens(int n) {
         
-        vector<bool> colVis(n, false);
-        vector<bool> pDiag(2*n-1, false);
-        vector<bool> sDiag(2*n-1, false);
+        vector<bool> col_chck(n, false);
+        vector<bool> pDiag_chck(2*n-1, false);
+        vector<bool> sDiag_chck(2*n-1, false);
         
         vector<vector<string>> res;
         vector<string> curr(n, string(n, '.'));
         
-        queen(0, n, colVis, pDiag, sDiag, res, curr);
+        n_queen(0, n, curr, res, col_chck, pDiag_chck, sDiag_chck);
         return res;
     }
 };
