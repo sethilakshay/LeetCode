@@ -1,71 +1,66 @@
 class Solution {
 public:
-    
     struct TrieNode{
         TrieNode* child[26] = {NULL};
         string word = "";
     };
-    // Initializing the TrieNode
-    TrieNode* root = new TrieNode();
     
-    void buildTrie(string& str){
+    TrieNode* root = new TrieNode;
+    
+    void buidTrie(string str){
         TrieNode* temp = root;
+        
         for(char c: str){
-            if(temp->child[c-'a'] == NULL){
-                temp->child[c-'a'] = new TrieNode();
-            }
-            temp = temp->child[c-'a'];
+            
+            if(temp->child[c - 'a'] == NULL){
+                temp->child[c - 'a'] = new TrieNode();
+            }    
+            temp = temp->child[c - 'a'];
         }
         temp->word = str;
     }
     
-    void searchTrie(int& idx, vector<vector<string>>& res, TrieNode* node){
+    void search(TrieNode* node, vector<string>& curr, int n){
+        
+        if(curr.size() == n){
+            return;
+        }
+        
         if(node == NULL){
             return;
         }
         
-        if(res[idx].size() == 3){
-            return;
-        }
-        
         if(node->word != ""){
-            res[idx].push_back(node->word);
+            curr.push_back(node->word);
         }
         
+        // Recursive Case;
         for(int i=0; i<26; i++){
-            TrieNode* temp = node->child[i];
-            searchTrie(idx, res, temp);
+            search(node->child[i], curr, n);
         }
     }
     
-    void dfs(string& searchWord, vector<vector<string>>& res){
+    
+    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+        for(string prod: products){
+            buidTrie(prod);
+        }
+        
+        vector<vector<string>> res;
         TrieNode* temp = root;
-        int idx = -1;
         
         for(char c: searchWord){
-            res.push_back(vector<string>());
-            idx++;
             
+            vector<string> curr;
             if(temp != NULL && temp->child[c-'a'] != NULL){
-                temp = temp->child[c-'a'];
+                temp = temp->child[c - 'a'];
             }
             else{
                 temp = NULL;
-                continue;
             }
-
-            searchTrie(idx, res, temp);
+            search(temp, curr, 3);
+            res.push_back(curr);
         }
-    }
-    
-    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
-        for(string str: products){
-            buildTrie(str);
-        }
-        
-        vector<vector<string>> res;    
-        dfs(searchWord, res);
-    
         return res;
     }
 };
