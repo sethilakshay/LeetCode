@@ -1,50 +1,56 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        int fresh = 0, row = grid.size(), col = grid[0].size(), res = -1, cnt_fresh = 0;
-        queue <pair<int, int>> q;
+        
+        int fresh = 0, res = -1;
+        queue<pair<int, int>> q;
+        int row = grid.size(), col = grid[0].size();
         
         for(int i=0; i<row; i++){
-            
             for(int j=0; j<col; j++){
-                
-                if(grid[i][j] == 1)
+                if(grid[i][j] == 1){
                     fresh++;
-                
-                if(grid[i][j] == 2)
+                }
+                else if(grid[i][j] == 2){
                     q.push({i, j});
+                }
             }
         }
         
-        if(fresh==0)
-            return 0;
+        int curr = 0;
+        vector<pair<int, int>> directions = {{0,1}, {0,-1}, {1,0}, {-1,0}};
         
-        vector<pair<int, int>> dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
         while(!q.empty()){
             
             int n = q.size();
             res++;
-            
-            while(n--){
-                int new_r = q.front().first;
-                int new_c = q.front().second;
+            for(int i=0; i<n; i++){
+                int c_row = q.front().first;
+                int c_col = q.front().second;
                 q.pop();
-
-                for(int i=0; i<dirs.size(); i++){
-                    int mod_r = new_r + dirs[i].first;
-                    int mod_c = new_c + dirs[i].second;
-
-                    if(0<=mod_r && mod_r<row && 0<=mod_c && mod_c<col){
-                        if(grid[mod_r][mod_c] == 1){
-                            grid[mod_r][mod_c] = 2;
-                            cnt_fresh++;
-                            q.push({mod_r, mod_c});
-                        }
+                
+                for(int j=0; j<directions.size(); j++){
+                    int m_row = c_row + directions[j].first;
+                    int m_col = c_col + directions[j].second;
+                    
+                    if(m_row>=0 && m_row<row && m_col>=0 && m_col<col && grid[m_row][m_col] == 1){
+                        grid[m_row][m_col] = 2;
+                        q.push({m_row, m_col});
+                        curr++;
                     }
                 }
             }
         }
         
-        return cnt_fresh != fresh ? -1 : res;
+        if(fresh == 0){
+            return 0;
+        }
+        
+        if(curr != fresh){
+            return -1;
+        }
+        
+        return res;
+        
     }
 };
