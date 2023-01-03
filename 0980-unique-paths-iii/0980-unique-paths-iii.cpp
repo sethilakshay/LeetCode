@@ -1,49 +1,47 @@
 class Solution {
 public:
-    void dfs(int r, int c, vector<vector<int>>& grid, int& cnt_sq, int& res, int steps){
-        int row = grid.size(), col = grid[0].size();
-        // Base Case
-        if(!(r>=0 && r<row && c>=0 && c<col && grid[r][c] != -1)){
+    void findPath(int r, int c, int& em_sq, int curr_sq, vector<vector<int>>& grid, int& res){
+
+        if(!(r>= 0 && r<grid.size() && c>=0 && c<grid[0].size() && grid[r][c] != -1)){
             return;
         }
         
         if(grid[r][c] == 2){
-            if(steps == cnt_sq)
+            if(em_sq == curr_sq)
                 res++;
             return;
         }
         
-        
         grid[r][c] = -1;
         
-        dfs(r+1, c, grid, cnt_sq, res, steps+1);
-        dfs(r-1, c, grid, cnt_sq, res, steps+1);
-        dfs(r, c+1, grid, cnt_sq, res, steps+1);
-        dfs(r, c-1, grid, cnt_sq, res, steps+1);
-           
+        findPath(r+1, c, em_sq, curr_sq+1, grid, res);
+        findPath(r-1, c, em_sq, curr_sq+1, grid, res);
+        findPath(r, c+1, em_sq, curr_sq+1, grid, res);
+        findPath(r, c-1, em_sq, curr_sq+1, grid, res);
+        
         grid[r][c] = 0;
+        return;
     }
     int uniquePathsIII(vector<vector<int>>& grid) {
         
-        int row = grid.size(), col = grid[0].size();
+        int em_sq = 0;
+        pair<int, int> start;
         
-        int start_r, start_c, cnt_sq = 0;
-        
-        for(int i=0; i<row; i++){
-            for(int j=0; j<col; j++){
+        for(int i=0; i<grid.size(); i++){
+            for(int j=0; j<grid[0].size(); j++){
                 if(grid[i][j] == 0){
-                    cnt_sq++;
+                    em_sq++;
                 }
-                if(grid[i][j] == 1){
-                    start_r = i;
-                    start_c = j;
-                    cnt_sq++;
+                else if(grid[i][j] == 1){
+                    start = make_pair(i, j);
+                    em_sq++;
                 }
             }
         }
         
-        int res = 0, steps = 0;
-        dfs(start_r, start_c, grid, cnt_sq, res, steps);
+        int res = 0, curr_sq = 0;
+        
+        findPath(start.first, start.second, em_sq, curr_sq, grid, res);
         return res;
     }
 };
