@@ -12,7 +12,7 @@
 class Solution {
 public:
     TreeNode* Tree(vector<int>& inorder, int i1, int i2, vector<int>& preorder, int p1, int p2, unordered_map<int, int>& in_map){
-        if(p1 > p2){
+        if(i1 > i2){
             return NULL;
         }
         
@@ -21,7 +21,7 @@ public:
         
         TreeNode* root = new TreeNode(elt);
         
-        root->left = Tree(inorder, i1, i1 + pos, preorder, p1+1, p1+pos, in_map);
+        root->left = Tree(inorder, i1, i1 + pos-1, preorder, p1+1, p1+pos-1, in_map);
         root->right = Tree(inorder, i1+pos+1, i2, preorder, p1+pos+1, p2, in_map);
         
         return root;
