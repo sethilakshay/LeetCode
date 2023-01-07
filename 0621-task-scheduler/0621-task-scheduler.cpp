@@ -3,26 +3,28 @@ public:
     int leastInterval(vector<char>& tasks, int n) {
         
         vector<int> freq(26, 0);
-        int maxF = 0, cnt = 0, n1 = tasks.size();
+        int max_freq = 0;
         
-        for(int i=0; i<n1; i++){
-            freq[tasks[i] - 'A']++;
-            maxF = max(maxF, freq[tasks[i] - 'A']);
+        for(char c: tasks){
+            freq[c - 'A']++;
+            max_freq = max(max_freq, freq[c - 'A']);
         }
         
+        int cnt_max = 0;
+        
         for(int i=0; i<26; i++){
-            if(maxF == freq[i]){
-                cnt++;
+            if(max_freq == freq[i]){
+                cnt_max++;
             }
         }
         
-        int rem_cnt = n1 - (maxF*cnt);
-        int rem_gaps = (n-cnt+1)*(maxF - 1);
+        int rem_cnt = tasks.size() - (max_freq*cnt_max);
+        int rem_gaps =  (n+1-cnt_max)*(max_freq-1);
         
-        if(rem_cnt >= rem_gaps){
-            return n1;
+        if(rem_cnt < rem_gaps){
+            return rem_gaps + (max_freq*cnt_max);
         }
         
-        return rem_gaps + maxF*cnt;
+        return tasks.size();
     }
 };
