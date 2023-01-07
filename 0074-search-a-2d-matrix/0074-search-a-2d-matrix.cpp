@@ -4,22 +4,22 @@ public:
         
         int row = matrix.size(), col = matrix[0].size();
         
-        int lo = 0, hi = (row*col) - 1, mid, r, c;
+        int lo = 0, hi = row*col-1, mid;
         
         while(lo<=hi){
-            
             mid = lo + (hi-lo)/2;
-            r = mid/col;
-            c = mid%col;
-            
+    
+            int r = mid/col;
+            int c = mid%col;
+
             if(matrix[r][c] == target){
                 return true;
             }
-            else if(matrix[r][c] < target){
-                lo = mid+1;
+            else if(matrix[r][c] > target){
+                hi = mid-1;
             }
             else{
-                hi = mid-1;
+                lo=mid+1;
             }
         }
         return false;
