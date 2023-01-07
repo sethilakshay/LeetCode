@@ -11,24 +11,28 @@
  */
 class Solution {
 public:
-    bool res = true;
-    void checkBST(TreeNode* root, long min, long max){
-        if(!res || root == NULL){
-            return;
-        }
-        
-        if(root->val <= min || root->val >= max){
-            res = false;
-            return;
-        }
-        
-        checkBST(root->left, min, root->val);
-        checkBST(root->right, root->val, max);
-    }
-    
     bool isValidBST(TreeNode* root) {
         
-        checkBST(root, LONG_MIN, LONG_MAX);
-        return res;
+        stack<TreeNode*> stk;
+        TreeNode* prev = NULL;
+        
+        while(root != NULL || !stk.empty()){
+            
+            while(root != NULL){
+                stk.push(root);
+                root = root->left;
+            }
+            
+            root = stk.top();
+            stk.pop();
+            
+            if(prev && prev->val >= root->val){
+                return false;
+            }
+            
+            prev = root;
+            root = root->right;
+        }
+        return true;
     }
 };
