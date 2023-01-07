@@ -21,7 +21,7 @@ public:
         
         TreeNode* root = new TreeNode(elt);
         
-        root->left = Tree(inorder, i1, i1 + pos-1, preorder, p1+1, p1+pos+1, in_map);
+        root->left = Tree(inorder, i1, i1 + pos-1, preorder, p1+1, p1+pos, in_map);
         root->right = Tree(inorder, i1+pos+1, i2, preorder, p1+pos+1, p2, in_map);
         
         return root;
