@@ -1,9 +1,8 @@
 class Solution {
 public:
     int minimumKeypresses(string s) {
-        
-        int n = 26, res = 0, cnt = 0;
-        vector<int> freq(n, 0);
+    
+        vector<int> freq(26, 0);
         
         //Frequency array to keep track of how much each letter has been pressed
         for(char c: s){
@@ -15,7 +14,7 @@ public:
             return b<a;
         });
         
-        //Looping through the frequency array
+        int res = 0, cnt = 0;
         for(int i=0; i<26; i++){
             //Increasing count after every 9 iterations
             if(i%9 == 0)
