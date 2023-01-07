@@ -11,28 +11,26 @@
  */
 class Solution {
 public:
-    bool isValidBST(TreeNode* root) {
-        
-        stack<TreeNode*> stk;
-        TreeNode* prev = NULL;
-        
-        while(root != NULL || !stk.empty()){
-            
-            while(root != NULL){
-                stk.push(root);
-                root = root->left;
-            }
-            
-            root = stk.top();
-            stk.pop();
-            
-            if(prev && prev->val >= root->val){
-                return false;
-            }
-            
-            prev = root;
-            root = root->right;
+    bool res = true;
+    TreeNode* prev = NULL;
+    
+    void inOrder(TreeNode* root){
+        if(root == NULL || !res){
+            return;
         }
-        return true;
+        
+        inOrder(root->left);
+        if(prev && prev->val >= root->val){
+            res = false;
+            return;
+        }
+        
+        prev = root;
+        inOrder(root->right);
+    }
+    
+    bool isValidBST(TreeNode* root) {
+        inOrder(root);
+        return res;
     }
 };
