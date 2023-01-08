@@ -4,8 +4,8 @@ public:
         
         int xor_num = 0;
         
-        for(int i=0; i<nums.size(); i++){
-            xor_num ^= nums[i];
+        for(int num: nums){
+            xor_num ^= num;
         }
         return xor_num;
     }
