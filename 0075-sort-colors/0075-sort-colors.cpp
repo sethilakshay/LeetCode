@@ -26,7 +26,9 @@ public:
             return;
         }
         
-        int pivot = nums[r];
+        int mid = l+(r-l)/2;
+        int pivot = nums[mid];
+        swap(nums[r], nums[mid]);
         int partitionIdx = partition(nums, l, r, pivot);
         
         quickSort(nums, l, partitionIdx-1);
