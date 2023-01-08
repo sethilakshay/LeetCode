@@ -9,6 +9,7 @@
  */
 class Codec {
 public:
+    // Level Order serialization and Deserialization
     void encode(TreeNode* root, string& out){
         if(root == NULL){
             out.push_back('n');
@@ -47,7 +48,6 @@ public:
         
         
         string currNum = "";
-        
         while(data[idx] != 'n' && data[idx] != ','){
             currNum += data[idx];
             idx++;
