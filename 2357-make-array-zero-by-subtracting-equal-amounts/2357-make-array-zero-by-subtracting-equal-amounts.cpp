@@ -2,8 +2,8 @@ class Solution {
 public:
     int minimumOperations(vector<int>& nums) {
         
-        unordered_set<int> s(nums.begin(), nums.end());
+        unordered_set<int> hash_set(nums.begin(), nums.end());
         
-        return s.size() - s.count(0);
+        return hash_set.size() - hash_set.count(0);
     }
 };
