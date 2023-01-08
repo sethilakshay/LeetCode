@@ -1,16 +1,14 @@
 class Solution {
 public:
     int partition(vector<int>& nums, int l, int r, int pivot){
-        int leftPtr = l;
-        int rightPtr = r-1;
+        int leftPtr = l-1;
+        int rightPtr = r;
         
         while(true){
-            while(nums[leftPtr] < pivot){
-                leftPtr++;
+            while(nums[++leftPtr] < pivot){
             }
             
-            while(rightPtr > leftPtr && nums[rightPtr] > pivot){
-                rightPtr--;
+            while(rightPtr > leftPtr && nums[--rightPtr] > pivot){
             }
             
             if(leftPtr >= rightPtr){
@@ -39,24 +37,23 @@ public:
         //lo -> 0;
         //mid -> 1;
         //hi -> 2;
-        int lo = 0, mid = 0, hi = nums.size()-1;
-        while(mid <= hi){
-            if(nums[mid] == 0){
-                swap(nums[lo], nums[mid]);
-                lo++;
-                mid++;
-            }
-            else if(nums[mid] == 1){
-                mid++;
-            }
-            else{
-                swap(nums[hi], nums[mid]);
-                hi--;
-            }
-        }
-        
+        // int lo = 0, mid = 0, hi = nums.size()-1;
+        // while(mid <= hi){
+        //     if(nums[mid] == 0){
+        //         swap(nums[lo], nums[mid]);
+        //         lo++;
+        //         mid++;
+        //     }
+        //     else if(nums[mid] == 1){
+        //         mid++;
+        //     }
+        //     else{
+        //         swap(nums[hi], nums[mid]);
+        //         hi--;
+        //     }
+        // }
         
         // QuickSort Based Approach
-        //quickSort(nums, 0, nums.size()-1);
+        quickSort(nums, 0, nums.size()-1);
     }
 };
