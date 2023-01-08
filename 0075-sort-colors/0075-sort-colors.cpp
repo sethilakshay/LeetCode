@@ -5,11 +5,8 @@ public:
         int rightPtr = r;
         
         while(true){
-            while(nums[++leftPtr] < pivot){
-            }
-            
-            while(rightPtr > leftPtr && nums[--rightPtr] > pivot){
-            }
+            while(nums[++leftPtr] < pivot);
+            while(rightPtr > leftPtr && nums[--rightPtr] > pivot);
             
             if(leftPtr >= rightPtr){
                 break;
@@ -26,9 +23,13 @@ public:
             return;
         }
         
+        // Making the middle number pivot
+        // Remember, quickSort becomes much much faster with the choice of the pivot
+        // O(nlogn) Time complexity with inplace sorting
         int mid = l+(r-l)/2;
         int pivot = nums[mid];
         swap(nums[r], nums[mid]);
+        
         int partitionIdx = partition(nums, l, r, pivot);
         
         quickSort(nums, l, partitionIdx-1);
