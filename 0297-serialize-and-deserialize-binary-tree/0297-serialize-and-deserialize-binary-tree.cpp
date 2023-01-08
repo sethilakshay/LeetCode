@@ -9,7 +9,7 @@
  */
 class Codec {
 public:
-    // Level Order serialization and Deserialization
+    // Pre-Order serialization and Deserialization
     void encode(TreeNode* root, string& out){
         if(root == NULL){
             out.push_back('n');
