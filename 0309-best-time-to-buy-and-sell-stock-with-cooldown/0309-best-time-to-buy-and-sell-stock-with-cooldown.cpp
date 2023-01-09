@@ -20,7 +20,7 @@ public:
         
         for(int i=2; i<n; i++){
             
-            dp_buy[i] = max(dp_buy[i-1], dp_sell[i-2]-prices[i]);
+            dp_buy[i] = max(dp_buy[i-1], dp_sell[i-2]-prices[i]);   //dp_sell[i-2] due to cooldown 
             dp_sell[i] = max(dp_sell[i-1], dp_buy[i-1] + prices[i]);
         }
         return dp_sell[n-1];
