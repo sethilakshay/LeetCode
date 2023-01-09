@@ -12,6 +12,7 @@
 class Solution {
 public:
     // Non Recursive BFS Solution
+    // Using queues
     TreeNode* invertTree(TreeNode* root) {
         if(root == NULL){
             return NULL;
