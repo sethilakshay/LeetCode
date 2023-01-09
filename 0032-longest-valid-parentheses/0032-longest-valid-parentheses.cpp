@@ -2,13 +2,12 @@ class Solution {
 public:
     int longestValidParentheses(string s) {
         
-        stack<int> stk;
+        int res = 0;
+
+        stack<int> stk;     //To store the indices of '('
         stk.push(-1);
         
-        int res = 0;
-        
         for(int i=0; i<s.size(); i++){
-            
             if(s[i] == '('){
                 stk.push(i);
             }
@@ -18,10 +17,8 @@ public:
                 if(stk.empty()){
                     stk.push(i);
                 }
-                
                 res = max(res, i - stk.top());
             }
-            
         }
         return res;
     }
