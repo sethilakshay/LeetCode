@@ -12,31 +12,26 @@
 class Solution {
 public:
     // Non Recursive BFS Solution
-    // Using queues
+    // Using stack
     TreeNode* invertTree(TreeNode* root) {
         if(root == NULL){
             return NULL;
         }
         
-        queue<TreeNode*> q;
-        q.push(root);
+        stack<TreeNode*> stk;
+        stk.push(root);
         
-        while(!q.empty()){
+        while(!stk.empty()){
+            TreeNode* temp = stk.top();
+            stk.pop();
             
-            int n = q.size();
-            
-            for(int i=0; i<n; i++){
-                TreeNode* temp = q.front();
-                q.pop();
+            if(temp != NULL){
+                TreeNode* swap = temp->left;
+                temp->left = temp->right;
+                temp->right = swap;
                 
-                if(temp != NULL){
-                    TreeNode* swap = temp->left;
-                    temp->left = temp->right;
-                    temp->right = swap;
-
-                    q.push(temp->left);
-                    q.push(temp->right);
-                }
+                stk.push(temp->left);
+                stk.push(temp->right);
             }
         }
         return root;
