@@ -11,29 +11,19 @@
  */
 class Solution {
 public:
-    // Non Recursive BFS Solution
-    // Using stack
+    // Recursive DFS Solution
     TreeNode* invertTree(TreeNode* root) {
         if(root == NULL){
             return NULL;
         }
         
-        stack<TreeNode*> stk;
-        stk.push(root);
+        TreeNode* temp = root->left;
+        root->left = root->right;
+        root->right = temp;
         
-        while(!stk.empty()){
-            TreeNode* temp = stk.top();
-            stk.pop();
-            
-            if(temp != NULL){
-                TreeNode* swap = temp->left;
-                temp->left = temp->right;
-                temp->right = swap;
-                
-                stk.push(temp->left);
-                stk.push(temp->right);
-            }
-        }
+        invertTree(root->left);
+        invertTree(root->right);
+        
         return root;
     }
 };
