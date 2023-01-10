@@ -1,31 +1,30 @@
 class Solution {
 public:
     string getPermutation(int n, int k) {
-        
+        int currDigit, fact=1;
         string res = "";
+        vector<int>digits;
         
-        vector<char> digits(n, 0);
-        int fact = 1, curr;
-        
-        for(int i=1; i<n; i++){
-            digits[i-1] = i+'0';
-            fact *= i;
+        for (int i=1; i<n; i++){
+            digits.push_back(i);
+            fact*=i;
         }
-        digits[n-1] = n+'0';
+        digits.push_back(n);
         
         int tempK = k-1;
-        while(true){
+        while (true){  
+            //Formula for finding currDigit = ((k-1)/fact(n-1)) + 1;
+            //fact = (n-1)! (See above Loop executes till n-1)
+            currDigit = tempK/fact;
             
-            curr = tempK/fact;
+            res += (digits[currDigit] + '0');
+            digits.erase(digits.begin()+currDigit);
             
-            res.push_back(digits[curr]);
-            digits.erase(digits.begin() + curr);
-            
-            if(digits.empty())
+            if (digits.size()==0)
                 break;
-            
+
             tempK = tempK%fact;
-            fact = fact/digits.size();
+            fact/=digits.size();
         }
         return res;
     }
