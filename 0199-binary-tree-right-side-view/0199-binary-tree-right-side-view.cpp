@@ -11,40 +11,24 @@
  */
 class Solution {
 public:
+    // Recursive Solution
+    void rightView(TreeNode* root, int lvl, vector<int>& res){
+        if(root == NULL){
+            return;
+        }
+        
+        if(lvl == res.size()){
+            res.push_back(root->val);
+        }
+        
+        rightView(root->right, lvl+1, res);
+        rightView(root->left, lvl+1, res);
+        return;
+    }
     vector<int> rightSideView(TreeNode* root) {
         
-        if(root == NULL){
-            return {};
-        }
-        
-        queue<TreeNode*> q;
         vector<int> res;
-        
-        q.push(root);
-        res.push_back(root->val);
-        
-        while(!q.empty()){
-            
-            int n = q.size(), rightVal = INT_MIN;
-            
-            for(int i=0; i<n; i++){
-                TreeNode* temp = q.front();
-                q.pop();
-                
-                if(temp->left != NULL){
-                    q.push(temp->left);
-                    rightVal = temp->left->val;
-                }
-                
-                if(temp->right != NULL){
-                    q.push(temp->right);
-                    rightVal = temp->right->val;
-                }
-            }
-            if(rightVal != INT_MIN){
-                res.push_back(rightVal);
-            }
-        }
+        rightView(root, 0, res);
         return res;
     }
 };
