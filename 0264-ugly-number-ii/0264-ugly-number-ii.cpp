@@ -3,32 +3,28 @@ public:
     int nthUglyNumber(int n) {
         
         priority_queue<long, vector<long>, greater<long>> min_heap;
-        
         min_heap.push(1);
-        int cnt = 1;
         
-        while(cnt < n){
-            
-            long top = min_heap.top();
+        n--;
+        
+        while(n > 0){
+            long num = min_heap.top();
             min_heap.pop();
             
-            if(top %5 == 0){
-                min_heap.push(top*5);
+            if(num%5 == 0){
+                min_heap.push(num*5);
             }
-            
-            else if(top %3 == 0){
-                min_heap.push(top*3);
-                min_heap.push(top*5);
+            else if(num%3 == 0){
+                min_heap.push(num*5);
+                min_heap.push(num*3);
             }
-            
             else{
-                min_heap.push(top*2);
-                min_heap.push(top*3);
-                min_heap.push(top*5);
+                min_heap.push(num*5);
+                min_heap.push(num*3);
+                min_heap.push(num*2);
             }
-            cnt++;
+            n--;
         }
-        
         return min_heap.top();
     }
 };
