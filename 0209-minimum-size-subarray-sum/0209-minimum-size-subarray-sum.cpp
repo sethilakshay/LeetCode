@@ -5,17 +5,16 @@ public:
         int res = INT_MAX, currSum = 0;
         int i = 0, j = 0;
         
-        while(j<nums.size() && i<=j){
-            while(currSum < target && j<nums.size()){
-                currSum += nums[j];
-                j++;
-            }
-            
+        while(j<nums.size()){
+            currSum += nums[j];
+        
             while(currSum >= target){
-                res = min(res, j-i);
+                res = min(res, j-i+1);
                 currSum -= nums[i];
                 i++;
             }
+            
+            j++;
         }
         return res == INT_MAX ? 0 : res;   
     }
