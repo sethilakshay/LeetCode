@@ -11,30 +11,31 @@
  */
 class Solution {
 public:
-    void allPaths(TreeNode* root, int targetSum, vector<int>& temp, vector<vector<int>>& res){
-        if(root == NULL)
+    void findSum(TreeNode* root, int targetSum, vector<int>& curr, vector<vector<int>>& res){
+        // Base Cases
+        if(root == NULL){
             return;
-        
-        if(root->left == NULL && root->right == NULL && targetSum - root->val == 0){
-            temp.push_back(root->val);
-            res.push_back(temp);
-            temp.pop_back();
         }
-            
         
-        temp.push_back(root->val);
-        allPaths(root->left, targetSum-root->val, temp, res);
-        allPaths(root->right, targetSum-root->val, temp, res);
-        temp.pop_back();
-        
+        if(root->left == NULL && root->right == NULL && targetSum-root->val == 0){
+            curr.push_back(root->val);
+            res.push_back(curr);
+            curr.pop_back();
+            return;
+        }
+    
+        // Recurisve Case
+        curr.push_back(root->val);
+        findSum(root->left, targetSum - root->val, curr, res);
+        findSum(root->right, targetSum - root->val, curr, res);
+        curr.pop_back();
+        return;
     }
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
         
-        vector<int> temp;
+        vector<int> curr;
         vector<vector<int>> res;
-        
-        allPaths(root, targetSum, temp, res);
-        
+        findSum(root, targetSum, curr, res);
         return res;
     }
 };
