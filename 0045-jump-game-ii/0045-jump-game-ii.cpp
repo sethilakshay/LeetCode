@@ -2,14 +2,13 @@ class Solution {
 public:
     int jump(vector<int>& nums) {
         
-        int n = nums.size(), res = 0;
-        int left = 0, right = 0;
+        int left = 0, right = 0, res = 0;
         
-        while(right < n-1){
+        while(right < nums.size()-1){
             
             int max_jump = 0;
             for(int i=left; i<=right; i++){
-                max_jump = max(max_jump, nums[i] + i - right);
+                max_jump = max(max_jump, i+nums[i]-right);
             }
             
             left = right+1;
