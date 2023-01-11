@@ -1,7 +1,7 @@
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-        
+        // Length of longest increasing array
         vector<int> res;
         
         for(int i=0; i<nums.size(); i++){
@@ -14,14 +14,15 @@ public:
                 
                 while(lo < hi){
                     mid = lo + (hi-lo)/2;
+                    
                     if(res[mid] >= nums[i]){
                         hi = mid;
                     }
                     else{
-                        lo = mid + 1;
+                        lo = mid+1;
                     }
                 }
-                res[hi] = nums[i];
+                res[lo] = nums[i];
             }
         }
         return res.size();
