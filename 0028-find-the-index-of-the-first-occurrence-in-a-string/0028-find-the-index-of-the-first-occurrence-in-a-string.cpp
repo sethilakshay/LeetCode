@@ -1,47 +1,46 @@
 class Solution {
 public:
-    vector<int> lps(string pattern){
+    vector<int> buildLPS(string s){
         
-        int n = pattern.size(), j = 0;
-        vector<int> kmp_lps(n, 0);
+        int n = s.size();
+        vector<int> lps(n, 0);
         
+        int i = 1;
         for(int i=1; i<n; i++){
-            j = kmp_lps[i-1];
-            
-            while(j>0 && pattern[i] != pattern[j]){
-                j = kmp_lps[j-1];
+            int j = lps[i-1];
+            while(j > 0 && s[i] != s[j]){
+                j = lps[j-1];
             }
-            if(pattern[i] == pattern[j]){
+            
+            if(s[i] == s[j]){
                 j++;
             }
-            kmp_lps[i] = j;
+            lps[i] = j;
         }
-        return kmp_lps;
-        
+        return lps;
     }
     int strStr(string haystack, string needle) {
         
-        vector<int> kmp_pattern = lps(needle);
+        vector<int> lps = buildLPS(needle);
         
-        int j = 0, i = 0, res = -1;
-        while(i<haystack.size()){
+        int i = 0, j = 0;
+        while(i < haystack.size()){
             
             if(haystack[i] == needle[j]){
-                j++;
                 i++;
+                j++;
             }
             else{
                 if(j != 0)
-                    j = kmp_pattern[j-1];
+                    j = lps[j-1];
                 else
                     i++;
             }
             
             if(j == needle.size()){
-                res = i - j;
-                break;
+                return i - j;
             }
         }
-        return res;
+        return -1;
     }
 };
